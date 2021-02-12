@@ -1,0 +1,132 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#d7944e", "font": {"color": "black"}, "id": "accuracy", "label": "accuracy", "shape": "dot", "title": "Cluster 1"}, {"color": "#d7944e", "font": {"color": "black"}, "id": "planner", "label": "planner", "shape": "dot", "title": "Cluster 1"}, {"color": "#d7944e", "font": {"color": "black"}, "id": "maple", "label": "maple", "shape": "dot", "title": "Cluster 1"}, {"color": "#d7944e", "font": {"color": "black"}, "id": "lisa", "label": "lisa", "shape": "dot", "title": "Cluster 1"}, {"color": "#d7944e", "font": {"color": "black"}, "id": "lis", "label": "lis", "shape": "dot", "title": "Cluster 1"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "econometrics", "label": "econometrics", "shape": "dot", "title": "Cluster 2"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "julia", "label": "julia", "shape": "dot", "title": "Cluster 2"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "scikit", "label": "scikit", "shape": "dot", "title": "Cluster 2"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "label", "label": "label", "shape": "dot", "title": "Cluster 2"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "example", "label": "example", "shape": "dot", "title": "Cluster 2"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "sql", "label": "sql", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "excel", "label": "excel", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "python", "label": "python", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "statistics", "label": "statistics", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "r", "label": "r", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "tableau", "label": "tableau", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "cloud", "label": "cloud", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "model", "label": "model", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "policy", "label": "policy", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "cost", "label": "cost", "shape": "dot", "title": "Top Hard Skill"}]);
+        edges = new vis.DataSet([{"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.0", "to": "sql", "width": 0.5}, {"from": "sql", "physics": false, "title": "pmi:9.0, p-value:0.024", "to": "statistics", "width": 0.5}, {"from": "r", "physics": false, "title": "pmi:9.0, p-value:0.013", "to": "sql", "width": 0.5}, {"from": "sql", "physics": false, "title": "pmi:9.0, p-value:0.978", "to": "excel", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.0", "to": "statistics", "width": 0.5}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.0", "to": "r", "width": 0.5}, {"from": "sql", "physics": false, "title": "pmi:9.0, p-value:0.01", "to": "tableau", "width": 0.5}, {"from": "r", "physics": false, "title": "pmi:9.0, p-value:0.0", "to": "statistics", "width": 0.5}, {"from": "r", "physics": false, "title": "pmi:9.0, p-value:0.006", "to": "tableau", "width": 0.5}, {"from": "statistics", "physics": false, "title": "pmi:9.0, p-value:0.953", "to": "excel", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.034", "to": "tableau", "width": 0.5}, {"from": "tableau", "physics": false, "title": "pmi:9.0, p-value:0.015", "to": "statistics", "width": 0.5}, {"from": "python", "physics": false, "title": "pmi:8.0, p-value:0.412", "to": "excel", "width": 0.0005}, {"from": "tableau", "physics": false, "title": "pmi:9.0, p-value:0.236", "to": "excel", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:8.0, p-value:0.68", "to": "excel", "width": 0.0005}, {"from": "sql", "physics": false, "title": "pmi:9.0, p-value:0.448", "to": "cloud", "width": 0.0005}, {"from": "statistics", "physics": false, "title": "pmi:9.0, p-value:0.007", "to": "cloud", "width": 0.5}, {"from": "sql", "physics": false, "title": "pmi:9.0, p-value:0.05", "to": "policy", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:9.0, p-value:0.816", "to": "sql", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.18", "to": "cloud", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.816", "to": "sql", "width": 0.0005}, {"from": "sql", "physics": false, "title": "pmi:9.0, p-value:0.59", "to": "cost", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:9.0, p-value:0.175", "to": "excel", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.097", "to": "model", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:9.0, p-value:0.143", "to": "model", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.452", "to": "excel", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.088", "to": "cost", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:10.0, p-value:0.022", "to": "tableau", "width": 0.5}, {"from": "model", "physics": false, "title": "pmi:9.0, p-value:0.21", "to": "statistics", "width": 0.0005}, {"from": "cloud", "physics": false, "title": "pmi:9.0, p-value:0.909", "to": "excel", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:9.0, p-value:0.058", "to": "statistics", "width": 0.0005}, {"from": "tableau", "physics": false, "title": "pmi:9.0, p-value:0.122", "to": "cloud", "width": 0.0005}, {"from": "tableau", "physics": false, "title": "pmi:10.0, p-value:0.029", "to": "policy", "width": 0.5}, {"from": "policy", "physics": false, "title": "pmi:9.0, p-value:0.435", "to": "excel", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:9.0, p-value:0.919", "to": "cloud", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:9.0, p-value:0.153", "to": "policy", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.66", "to": "python", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.398", "to": "r", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.522", "to": "statistics", "width": 0.0005}, {"from": "policy", "physics": false, "title": "pmi:9.0, p-value:0.562", "to": "statistics", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.8", "to": "policy", "width": 0.0005}, {"from": "sql", "physics": false, "title": "pmi:0.0, p-value:0.985", "to": "example", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:0.0, p-value:0.749", "to": "tableau", "width": 0.0005}, {"from": "example", "physics": false, "title": "pmi:0.0, p-value:0.19", "to": "statistics", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:0.0, p-value:0.125", "to": "policy", "width": 0.0005}, {"from": "example", "physics": false, "title": "pmi:0.0, p-value:0.004", "to": "cloud", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.28", "to": "cloud", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:0.0, p-value:0.918", "to": "cost", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:0.0, p-value:0.244", "to": "model", "width": 0.0005}, {"from": "example", "physics": false, "title": "pmi:0.0, p-value:0.932", "to": "excel", "width": 0.0005}, {"from": "policy", "physics": false, "title": "pmi:0.0, p-value:0.79", "to": "cloud", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:0.0, p-value:0.959", "to": "cloud", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.014", "to": "example", "width": 0.0005}, {"from": "tableau", "physics": false, "title": "pmi:0.0, p-value:0.941", "to": "cost", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.244", "to": "excel", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.796", "to": "example", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.01", "to": "scikit", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.995", "to": "policy", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.01", "to": "label", "width": 0.0005}, {"from": "label", "physics": false, "title": "pmi:0.0, p-value:0.338", "to": "statistics", "width": 0.0005}, {"from": "label", "physics": false, "title": "pmi:0.0, p-value:0.0", "to": "scikit", "width": 0.0005}, {"from": "label", "physics": false, "title": "pmi:0.0, p-value:0.047", "to": "cloud", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.379", "to": "julia", "width": 0.0005}, {"from": "lis", "physics": false, "title": "pmi:0.0, p-value:0.442", "to": "excel", "width": 0.0005}, {"from": "lisa", "physics": false, "title": "pmi:0.0, p-value:0.442", "to": "excel", "width": 0.0005}, {"from": "planner", "physics": false, "title": "pmi:0.0, p-value:0.338", "to": "statistics", "width": 0.0005}, {"from": "planner", "physics": false, "title": "pmi:0.0, p-value:0.442", "to": "excel", "width": 0.0005}, {"from": "scikit", "physics": false, "title": "pmi:0.0, p-value:0.047", "to": "cloud", "width": 0.0005}, {"from": "statistics", "physics": false, "title": "pmi:0.0, p-value:0.338", "to": "scikit", "width": 0.0005}, {"from": "julia", "physics": false, "title": "pmi:0.0, p-value:0.0", "to": "label", "width": 0.0005}, {"from": "julia", "physics": false, "title": "pmi:0.0, p-value:0.298", "to": "r", "width": 0.0005}, {"from": "julia", "physics": false, "title": "pmi:0.0, p-value:0.0", "to": "econometrics", "width": 0.0005}, {"from": "julia", "physics": false, "title": "pmi:0.0, p-value:0.885", "to": "sql", "width": 0.0005}, {"from": "julia", "physics": false, "title": "pmi:0.0, p-value:0.01", "to": "cost", "width": 0.0005}, {"from": "julia", "physics": false, "title": "pmi:0.0, p-value:0.338", "to": "statistics", "width": 0.0005}, {"from": "julia", "physics": false, "title": "pmi:0.0, p-value:0.0", "to": "scikit", "width": 0.0005}, {"from": "julia", "physics": false, "title": "pmi:0.0, p-value:0.047", "to": "cloud", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:0.0, p-value:0.298", "to": "scikit", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:0.0, p-value:0.298", "to": "maple", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:0.0, p-value:0.298", "to": "planner", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:0.0, p-value:0.298", "to": "econometrics", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:0.0, p-value:0.021", "to": "planner", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:0.0, p-value:0.021", "to": "maple", "width": 0.0005}, {"from": "r", "physics": false, "title": "pmi:0.0, p-value:0.298", "to": "label", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.379", "to": "scikit", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.379", "to": "econometrics", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.379", "to": "label", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.379", "to": "planner", "width": 0.0005}, {"from": "sql", "physics": false, "title": "pmi:0.0, p-value:0.885", "to": "label", "width": 0.0005}, {"from": "sql", "physics": false, "title": "pmi:0.0, p-value:0.885", "to": "maple", "width": 0.0005}, {"from": "sql", "physics": false, "title": "pmi:0.0, p-value:0.885", "to": "planner", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:0.0, p-value:0.815", "to": "cost", "width": 0.0005}, {"from": "sql", "physics": false, "title": "pmi:0.0, p-value:0.885", "to": "scikit", "width": 0.0005}, {"from": "econometrics", "physics": false, "title": "pmi:0.0, p-value:0.885", "to": "sql", "width": 0.0005}, {"from": "econometrics", "physics": false, "title": "pmi:0.0, p-value:0.01", "to": "cost", "width": 0.0005}, {"from": "econometrics", "physics": false, "title": "pmi:0.0, p-value:0.0", "to": "label", "width": 0.0005}, {"from": "econometrics", "physics": false, "title": "pmi:0.0, p-value:0.338", "to": "statistics", "width": 0.0005}, {"from": "econometrics", "physics": false, "title": "pmi:0.0, p-value:0.0", "to": "scikit", "width": 0.0005}, {"from": "econometrics", "physics": false, "title": "pmi:0.0, p-value:0.047", "to": "cloud", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:0.0, p-value:0.021", "to": "planner", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:0.0, p-value:0.815", "to": "policy", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:0.0, p-value:0.021", "to": "lisa", "width": 0.0005}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

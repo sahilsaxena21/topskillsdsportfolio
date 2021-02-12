@@ -1,0 +1,132 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#d7944e", "font": {"color": "black"}, "id": "accuracy", "label": "accuracy", "shape": "dot", "title": "Cluster 1"}, {"color": "#d7944e", "font": {"color": "black"}, "id": "representation", "label": "representation", "shape": "dot", "title": "Cluster 1"}, {"color": "#d7944e", "font": {"color": "black"}, "id": "selection", "label": "selection", "shape": "dot", "title": "Cluster 1"}, {"color": "#d7944e", "font": {"color": "black"}, "id": "openai", "label": "openai", "shape": "dot", "title": "Cluster 1"}, {"color": "#d7944e", "font": {"color": "black"}, "id": "node", "label": "node", "shape": "dot", "title": "Cluster 1"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "layer", "label": "layer", "shape": "dot", "title": "Cluster 2"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "validation", "label": "validation", "shape": "dot", "title": "Cluster 2"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "hyperparameter", "label": "hyperparameter", "shape": "dot", "title": "Cluster 2"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "cost", "label": "cost", "shape": "dot", "title": "Cluster 2"}, {"color": "#4eabb7", "font": {"color": "black"}, "id": "mapreduce", "label": "mapreduce", "shape": "dot", "title": "Cluster 2"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "python", "label": "python", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "tensorflow", "label": "tensorflow", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "cloud", "label": "cloud", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "ml", "label": "ml", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "aws", "label": "aws", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "pytorch", "label": "pytorch", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "java", "label": "java", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "model", "label": "model", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "pipelines", "label": "pipelines", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "classification", "label": "classification", "shape": "dot", "title": "Top Hard Skill"}, {"color": "#ea96a3", "font": {"color": "black"}, "id": "keras", "label": "keras", "shape": "dot", "title": "Top Hard Skill"}]);
+        edges = new vis.DataSet([{"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.152", "to": "tensorflow", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.351", "to": "cloud", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:8.0, p-value:0.865", "to": "ml", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.084", "to": "java", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.345", "to": "aws", "width": 0.0005}, {"from": "pytorch", "physics": false, "title": "pmi:9.0, p-value:0.007", "to": "tensorflow", "width": 0.5}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.95", "to": "pytorch", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:8.0, p-value:0.985", "to": "cloud", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.964", "to": "model", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:9.0, p-value:0.006", "to": "cloud", "width": 0.5}, {"from": "tensorflow", "physics": false, "title": "pmi:9.0, p-value:0.06", "to": "java", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:8.0, p-value:0.877", "to": "pipelines", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:8.0, p-value:0.302", "to": "ml", "width": 0.0005}, {"from": "keras", "physics": false, "title": "pmi:9.0, p-value:0.016", "to": "tensorflow", "width": 0.5}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.67", "to": "keras", "width": 0.0005}, {"from": "ml", "physics": false, "title": "pmi:9.0, p-value:0.018", "to": "pipelines", "width": 0.5}, {"from": "python", "physics": false, "title": "pmi:8.0, p-value:0.789", "to": "classification", "width": 0.0005}, {"from": "pipelines", "physics": false, "title": "pmi:9.0, p-value:0.002", "to": "aws", "width": 0.5}, {"from": "cloud", "physics": false, "title": "pmi:9.0, p-value:0.529", "to": "aws", "width": 0.0005}, {"from": "pytorch", "physics": false, "title": "pmi:9.0, p-value:0.263", "to": "ml", "width": 0.0005}, {"from": "ml", "physics": false, "title": "pmi:9.0, p-value:0.263", "to": "aws", "width": 0.0005}, {"from": "ml", "physics": false, "title": "pmi:8.0, p-value:0.387", "to": "cloud", "width": 0.0005}, {"from": "java", "physics": false, "title": "pmi:9.0, p-value:0.695", "to": "cloud", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:9.0, p-value:0.853", "to": "pipelines", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:9.0, p-value:0.265", "to": "cloud", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:9.0, p-value:0.811", "to": "tensorflow", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:8.0, p-value:0.985", "to": "model", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:8.0, p-value:0.692", "to": "aws", "width": 0.0005}, {"from": "keras", "physics": false, "title": "pmi:9.0, p-value:0.208", "to": "cloud", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:9.0, p-value:0.012", "to": "model", "width": 0.5}, {"from": "pipelines", "physics": false, "title": "pmi:9.0, p-value:0.879", "to": "cloud", "width": 0.0005}, {"from": "keras", "physics": false, "title": "pmi:9.0, p-value:0.014", "to": "java", "width": 0.5}, {"from": "classification", "physics": false, "title": "pmi:9.0, p-value:0.003", "to": "keras", "width": 0.5}, {"from": "keras", "physics": false, "title": "pmi:9.0, p-value:0.014", "to": "model", "width": 0.5}, {"from": "pytorch", "physics": false, "title": "pmi:9.0, p-value:0.382", "to": "aws", "width": 0.0005}, {"from": "pytorch", "physics": false, "title": "pmi:9.0, p-value:0.421", "to": "pipelines", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:9.0, p-value:0.429", "to": "java", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:9.0, p-value:0.585", "to": "aws", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:10.0, p-value:0.0", "to": "classification", "width": 0.5}, {"from": "java", "physics": false, "title": "pmi:9.0, p-value:0.967", "to": "aws", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.766", "to": "python", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.182", "to": "tensorflow", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:9.0, p-value:0.487", "to": "java", "width": 0.0005}, {"from": "pytorch", "physics": false, "title": "pmi:8.0, p-value:0.085", "to": "cloud", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:9.0, p-value:0.657", "to": "pipelines", "width": 0.0005}, {"from": "pytorch", "physics": false, "title": "pmi:8.0, p-value:0.967", "to": "java", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.254", "to": "cloud", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.014", "to": "java", "width": 0.5}, {"from": "accuracy", "physics": false, "title": "pmi:9.0, p-value:0.014", "to": "model", "width": 0.5}, {"from": "accuracy", "physics": false, "title": "pmi:10.0, p-value:0.001", "to": "keras", "width": 0.5}, {"from": "ml", "physics": false, "title": "pmi:8.0, p-value:0.04", "to": "java", "width": 0.5}, {"from": "java", "physics": false, "title": "pmi:8.0, p-value:0.879", "to": "pipelines", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:8.0, p-value:0.15", "to": "ml", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:8.0, p-value:0.771", "to": "pipelines", "width": 0.0005}, {"from": "keras", "physics": false, "title": "pmi:8.0, p-value:0.156", "to": "ml", "width": 0.0005}, {"from": "keras", "physics": false, "title": "pmi:8.0, p-value:0.826", "to": "pytorch", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:8.0, p-value:0.467", "to": "pytorch", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:8.0, p-value:0.008", "to": "ml", "width": 0.5}, {"from": "validation", "physics": false, "title": "pmi:10.0, p-value:0.013", "to": "pipelines", "width": 0.5}, {"from": "validation", "physics": false, "title": "pmi:9.0, p-value:0.139", "to": "cloud", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:9.0, p-value:0.872", "to": "validation", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:10.0, p-value:0.018", "to": "validation", "width": 0.5}, {"from": "classification", "physics": false, "title": "pmi:8.0, p-value:0.185", "to": "aws", "width": 0.0005}, {"from": "validation", "physics": false, "title": "pmi:0.0, p-value:0.196", "to": "aws", "width": 0.0005}, {"from": "ml", "physics": false, "title": "pmi:0.0, p-value:0.48", "to": "validation", "width": 0.0005}, {"from": "ml", "physics": false, "title": "pmi:0.0, p-value:0.174", "to": "selection", "width": 0.0005}, {"from": "keras", "physics": false, "title": "pmi:0.0, p-value:0.147", "to": "aws", "width": 0.0005}, {"from": "keras", "physics": false, "title": "pmi:0.0, p-value:0.287", "to": "pipelines", "width": 0.0005}, {"from": "selection", "physics": false, "title": "pmi:0.0, p-value:0.06", "to": "aws", "width": 0.0005}, {"from": "pytorch", "physics": false, "title": "pmi:0.0, p-value:0.06", "to": "selection", "width": 0.0005}, {"from": "selection", "physics": false, "title": "pmi:0.0, p-value:0.037", "to": "pipelines", "width": 0.0005}, {"from": "selection", "physics": false, "title": "pmi:0.0, p-value:0.047", "to": "java", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:0.0, p-value:0.37", "to": "selection", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.987", "to": "selection", "width": 0.0005}, {"from": "representation", "physics": false, "title": "pmi:0.0, p-value:0.38", "to": "cloud", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.809", "to": "hyperparameter", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.809", "to": "representation", "width": 0.0005}, {"from": "pytorch", "physics": false, "title": "pmi:0.0, p-value:0.003", "to": "model", "width": 0.0005}, {"from": "hyperparameter", "physics": false, "title": "pmi:0.0, p-value:0.122", "to": "model", "width": 0.0005}, {"from": "hyperparameter", "physics": false, "title": "pmi:0.0, p-value:0.102", "to": "pipelines", "width": 0.0005}, {"from": "hyperparameter", "physics": false, "title": "pmi:0.0, p-value:0.38", "to": "cloud", "width": 0.0005}, {"from": "hyperparameter", "physics": false, "title": "pmi:0.0, p-value:0.144", "to": "aws", "width": 0.0005}, {"from": "hyperparameter", "physics": false, "title": "pmi:0.0, p-value:0.31", "to": "ml", "width": 0.0005}, {"from": "hyperparameter", "physics": false, "title": "pmi:0.0, p-value:0.0", "to": "validation", "width": 0.0005}, {"from": "ml", "physics": false, "title": "pmi:0.0, p-value:0.855", "to": "representation", "width": 0.0005}, {"from": "layer", "physics": false, "title": "pmi:0.0, p-value:0.002", "to": "validation", "width": 0.0005}, {"from": "layer", "physics": false, "title": "pmi:0.0, p-value:0.315", "to": "java", "width": 0.0005}, {"from": "layer", "physics": false, "title": "pmi:0.0, p-value:0.283", "to": "pipelines", "width": 0.0005}, {"from": "layer", "physics": false, "title": "pmi:0.0, p-value:0.642", "to": "cloud", "width": 0.0005}, {"from": "layer", "physics": false, "title": "pmi:0.0, p-value:0.348", "to": "aws", "width": 0.0005}, {"from": "ml", "physics": false, "title": "pmi:0.0, p-value:0.563", "to": "node", "width": 0.0005}, {"from": "ml", "physics": false, "title": "pmi:0.0, p-value:0.563", "to": "openai", "width": 0.0005}, {"from": "representation", "physics": false, "title": "pmi:0.0, p-value:0.796", "to": "aws", "width": 0.0005}, {"from": "validation", "physics": false, "title": "pmi:0.0, p-value:0.659", "to": "java", "width": 0.0005}, {"from": "openai", "physics": false, "title": "pmi:0.0, p-value:0.642", "to": "cloud", "width": 0.0005}, {"from": "mapreduce", "physics": false, "title": "pmi:0.0, p-value:0.315", "to": "model", "width": 0.0005}, {"from": "mapreduce", "physics": false, "title": "pmi:0.0, p-value:0.0", "to": "layer", "width": 0.0005}, {"from": "mapreduce", "physics": false, "title": "pmi:0.0, p-value:0.348", "to": "aws", "width": 0.0005}, {"from": "mapreduce", "physics": false, "title": "pmi:0.0, p-value:0.642", "to": "cloud", "width": 0.0005}, {"from": "mapreduce", "physics": false, "title": "pmi:0.0, p-value:0.283", "to": "pipelines", "width": 0.0005}, {"from": "mapreduce", "physics": false, "title": "pmi:0.0, p-value:0.315", "to": "java", "width": 0.0005}, {"from": "mapreduce", "physics": false, "title": "pmi:0.0, p-value:0.002", "to": "validation", "width": 0.0005}, {"from": "pytorch", "physics": false, "title": "pmi:0.0, p-value:0.796", "to": "representation", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:0.0, p-value:0.742", "to": "validation", "width": 0.0005}, {"from": "classification", "physics": false, "title": "pmi:0.0, p-value:0.252", "to": "cost", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.574", "to": "mapreduce", "width": 0.0005}, {"from": "accuracy", "physics": false, "title": "pmi:0.0, p-value:0.201", "to": "pytorch", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.574", "to": "openai", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.574", "to": "node", "width": 0.0005}, {"from": "python", "physics": false, "title": "pmi:0.0, p-value:0.574", "to": "layer", "width": 0.0005}, {"from": "keras", "physics": false, "title": "pmi:0.0, p-value:0.192", "to": "node", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:0.0, p-value:0.315", "to": "node", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:0.0, p-value:0.315", "to": "layer", "width": 0.0005}, {"from": "model", "physics": false, "title": "pmi:0.0, p-value:0.315", "to": "cost", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.348", "to": "aws", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.642", "to": "cloud", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.283", "to": "pipelines", "width": 0.0005}, {"from": "cost", "physics": false, "title": "pmi:0.0, p-value:0.563", "to": "ml", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:0.0, p-value:0.814", "to": "node", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:0.0, p-value:0.814", "to": "openai", "width": 0.0005}, {"from": "tensorflow", "physics": false, "title": "pmi:0.0, p-value:0.542", "to": "representation", "width": 0.0005}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
