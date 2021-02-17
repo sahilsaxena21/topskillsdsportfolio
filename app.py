@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 import pandas as pd
@@ -24,12 +24,18 @@ from IPython.core.display import display, HTML
 
 html_temp = """
             <div style="background-color:{};padding:10px;border-radius:10px">
-            <h1 style="color:{};text-align:center;">Exploring Industry Needs in Data Science App </h1>
+            <h1 style="color:{};text-align:center;">Exploring Industry Needs in Data Science</h1>
+            </div>
+            """
+
+welcome_temp = """
+            <div style="background-color:{};padding:10px;border-radius:10px">
+            <h1 style="color:{};text-align:center;">Welcome!</h1>
             </div>
             """
 
 
-# In[3]:
+# In[2]:
 
 
 st.cache(persist=True)
@@ -40,7 +46,7 @@ def load_data():
 df_tools,df_edge_dict = load_data()
 
 
-# In[4]:
+# In[3]:
 
 
 def plot_countplot(title, clusters):
@@ -72,7 +78,7 @@ def plot_countplot(title, clusters):
     
 
 
-# In[5]:
+# In[4]:
 
 
 def plot_bar_chart(df_tools, title):
@@ -102,7 +108,7 @@ def plot_bar_chart(df_tools, title):
     st.pyplot(fig)
 
 
-# In[6]:
+# In[5]:
 
 
 menu = ["Home", "About"]
@@ -115,25 +121,40 @@ st.markdown(html_temp.format('royalblue','white'),unsafe_allow_html=True)
 
 if choice == "About":
     st.markdown("")
-    st.markdown("This app attempts to shed light on the current industry needs in Canada in the broad discipline of Data Science.")
-    st.markdown("Scraped data Sources")
-    st.markdown("1) Indeed.ca job postings (between Nov 2020 - Jan, 2021) with titles 'data scientist', 'machine learning engineer', 'data engineer' or 'data analyst'")
-    st.markdown("2) Hard skills from Wikipedia's Glossary of ML, Google's Machine Learning Glossary, datascienceglossary.org and more.")
-    st.markdown("Hope this helps you understand industry needs better!")
-    st.markdown("")
+    st.markdown('''This app is inspired by a personal 
+    need to understand Canadian industry needs better in the data science industry. 
+    But hope this is able to help you as well.''')
+    st.markdown("Job postings dataset last updated January 06 2021.")
     st.markdown('''Designed by: **Sahil Saxena**''')
     st.markdown("This project is licensed under the terms of the MIT license.")
 
     
 elif choice == "Home":
     
-    #header 1
-    st.header('What are the key words associated with each job title?')
+    #Welcome message
+    st.markdown(welcome_temp.format('white','black'),unsafe_allow_html=True)
+    with st.beta_expander('''What's the point?'''):
+        st.write('''To help you upskill in a relevant way! 
+        This app takes the leg work out by processing hundreds of job postings and delivering insights 
+        programatically through carefully chosen exploratory visuals.''')
+        st.markdown("")
+        st.write('''This app was developed to stand the test of time. Its developed so it can create its own dataset 
+        rather than relying on a static dataset. For example, the job postings dataset can be readily 
+        updated by re-scraping from Indeed.ca. Another dataset the app relies on is a comprehensive 
+        dictionary of hard skills relevant in the data science industry. This dataset can also be 
+        updated by re-scraping. To do this, the scraper collects and ingests content from webpages, 
+        such as Google's Machine Learning Glossary and O'Reilly's Data Science Glossary. 
+        In this way, the insights of this app can evolve with the changing needs of the industry.''')
     
+    #header 1
+    st.header('')
+    st.header('1. What are the key words associated with each job title?')
+   
     with st.beta_expander('How is this constructed?'):
-        st.write("Word clouds are populated programatically using Pointwise Mutual Information as a measure of the specific association of words in job descriptions with each job title. Text size represents relative occurence of the term or phrase")
-
-        
+        st.write('''Word clouds are populated programatically using Pointwise Mutual Information 
+        as a measure of association between words (in the job descriptions) and the job title. 
+        Text size represents relative occurence frequency of the term or phrase''')
+                 
     col1, col2 = st.beta_columns(2)
     with col1:
         st.header("Data Scientist")
@@ -152,23 +173,22 @@ elif choice == "Home":
         st.header("Data Engineer")
         st.image("image_files/wordcloud_3.png", use_column_width=True)        
         
-
-        
     #header 2
-    st.markdown('Choose a Job Title Below to Explore its Industry Needs')    
+    st.header('2. What are the top hard skills?')
+    with st.beta_expander('How is this constructed?'):
+        st.write("A list of terms used in data science were scraped from various websites including Google's Machine Learning Glossary, Wikipedia and more. These are represented as 'hard skills' in this exploratory tool")
+        
+    st.markdown('')  
     title=st.selectbox('Select Job Title',('Data Scientist','Data Engineer', 'Machine Learning Engineer', 'Data Analyst'))
     
     number_of_records = df_tools[df_tools["job_group"] == title].shape[0]
     st.markdown("")
-    st.markdown(f"Number of Records in Database: {number_of_records}")    
-    st.header('What are the top hard skills?')
-    with st.beta_expander('How is this constructed?'):
-        st.write("A list of terms used in data science were scraped from various websites including Google's Machine Learning Glossary, Wikipedia and more. These are represented as 'hard skills' in this exploratory tool")
-    
+    st.markdown(f"Number of Records in Database: {number_of_records}")
+
     plot_bar_chart(df_tools, title)
 
     #header 3
-    st.header('How can we classify postings within the job title?')
+    st.header('3. How can we characterize postings within the job title?')
     number_of_clusters = st.selectbox('Choose Number of Clusters',(2,3,4,5))
     
     #header 4
@@ -176,34 +196,29 @@ elif choice == "Home":
     
     with st.beta_expander('How is this constructed?'):
         st.write("We first apply a clustering algorithm to see if job postings can be grouped in a certain way based on the hard skills in the job descriptions. These are the color coded cluster nodes in the dependency graph. To help with understanding cluster nodes in relation to top hard skills, the graph also shows the top hard skills in pink.")
-        st.write("Cluster nodes displayed on the graph are selected with some care. Each cluster node characterizes the trait attributes of each cluster the best. Hence, when taken collectively, the nodes for each cluster actually depicts what the cluster represents. This is also done programitically through the use of PMI")
+        st.write("Cluster nodes displayed on the graph are selected with some care. Each cluster node characterizes the trait attributes of each cluster the best. Hence, when taken collectively, the nodes for each cluster actually depicts what the cluster represents. This is also done programitically through the use of PMI.")
         st.write("We then construct a dependency graph. A dependency graph shows the co-occurence of hard skills in a single job posting. Hence, hard skills that co-occur many times can be thought of as complementary and/or substitutive skills, depending on two skills being compared.")
         st.write("The extent of co-occurence is measured using two metrics. Firsly, we calculate laplace smoothed positive pointwise mutual information (PPMI). This provides a measure of association of two terms after normalizing it with the frequency of each term. Secondly, we observe the statistical significance of independence of the given two terms using Chi2 test with Yates correction for further stringency. All terms that have co-occured atleast 5 times, with a default significance level of 0.05 are illustrated with bolded edges.")    
-        st.write("If you like, you can play around with other significance levels, and display the resultant co-occurence dataframe below")    
+        st.write("If you like, you can play around with other significance levels, and display the resultant co-occurence dataframe below.")    
     
     parsed_string = title.lower().replace(" ", "_")
     plot_name = str(number_of_clusters) + "_" + str(parsed_string) + ".html"
     file_path = "html_files/" + plot_name
     HtmlFile = open(file_path, 'r', encoding='utf-8')
     source_code = HtmlFile.read() 
-    components.html(source_code, height = 1000,width=800)
+    components.html(source_code, height = 870,width=800)
     
     #countplot
-    st.header("Cluster Info")
+    st.header("Cluster Composition")
+    plot_countplot(title, number_of_clusters)
     
-    col1, col2 = st.beta_columns(2)
-    with col1:
-        st.header("Cluster Composition")
-        plot_countplot(title, number_of_clusters)
+    #Elbow method
+    st.header("Elbow Method")
+    image_file_path = "image_files/" + title + ".png"
+    st.image(image_file_path, use_column_width=True)    
 
-    with col2:
-        st.header("Elbow Curve")
-        image_file_path = "image_files/" + title + ".png"
-        st.image(image_file_path, use_column_width=True)
-        
-
-    if st.checkbox("Click to View the Co-occurence Dataset",False):
-            chosen = st.radio("Dataset Filtered by Chi2 Significance",("0.05","0.01","0.001"))
+    if st.checkbox("Click to view the co-occurence dataset",False):
+            chosen = st.radio("Dataset Filtered by Chi2 Significance",("0.1","0.05","0.01"))
             significance = float(chosen)
             df_edge_subset = df_edge_dict[number_of_clusters][title]
             df_edge = df_edge_subset[df_edge_subset["p_value_chi2"] <= significance]
