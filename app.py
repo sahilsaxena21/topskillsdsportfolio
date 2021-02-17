@@ -137,12 +137,12 @@ elif choice == "Home":
         st.write('''To help you upskill in a relevant way! 
         This app takes the leg work out by processing hundreds of job postings and delivering insights 
         programatically through carefully chosen exploratory visuals.''')
-        st.markdown("")
-        st.write('''This app was developed to stand the test of time. Its developed so it can create its own dataset 
+        st.write('''This app was developed to stand the test of time. It's developed so it can create its own dataset 
         rather than relying on a static dataset. For example, the job postings dataset can be readily 
-        updated by re-scraping from Indeed.ca. Another dataset the app relies on is a comprehensive 
+        updated by calling the indeed_crawler class which crawls postings from Indeed.ca. 
+        Another dataset the app relies on is a comprehensive 
         dictionary of hard skills relevant in the data science industry. This dataset can also be 
-        readily updated by re-scraping. For this, the scraper collects and ingests content from well-maintained webpages, 
+        readily updated. For this, the scraper collects and ingests content from well-maintained webpages, 
         such as Google's Machine Learning Glossary and O'Reilly's Data Science Glossary. 
         In this way, the insights from this app **evolves with the changing needs of the industry**.''')
     
@@ -176,7 +176,7 @@ elif choice == "Home":
     #header 2
     st.header('2. What are the top hard skills?')
     with st.beta_expander('How is this constructed?'):
-        st.write("A list of terms used in data science were scraped from various websites including Google's Machine Learning Glossary, Wikipedia and more. These are represented as 'hard skills' in this exploratory tool")
+        st.write("A list of terms used in data science were scraped from various websites including Google's Machine Learning Glossary, Wikipedia and more. These are represented as 'hard skills' in this exploratory tool.")
         
     st.markdown('')  
     title=st.selectbox('Select Job Title',('Data Scientist','Data Engineer', 'Machine Learning Engineer', 'Data Analyst'))
