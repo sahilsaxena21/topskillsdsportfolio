@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 import pandas as pd
@@ -29,7 +29,7 @@ html_temp = """
             """
 
 
-# In[2]:
+# In[3]:
 
 
 st.cache(persist=True)
@@ -40,7 +40,7 @@ def load_data():
 df_tools,df_edge_dict = load_data()
 
 
-# In[3]:
+# In[4]:
 
 
 def plot_countplot(title, clusters):
@@ -72,7 +72,7 @@ def plot_countplot(title, clusters):
     
 
 
-# In[4]:
+# In[5]:
 
 
 def plot_bar_chart(df_tools, title):
@@ -102,7 +102,7 @@ def plot_bar_chart(df_tools, title):
     st.pyplot(fig)
 
 
-# In[5]:
+# In[6]:
 
 
 menu = ["Home", "About"]
@@ -110,7 +110,7 @@ choice = st.sidebar.selectbox("Menu",menu)
 st.markdown(html_temp.format('royalblue','white'),unsafe_allow_html=True)
 
 
-# In[6]:
+# In[7]:
 
 
 if choice == "About":
@@ -187,6 +187,20 @@ elif choice == "Home":
     HtmlFile = open(file_path, 'r', encoding='utf-8')
     source_code = HtmlFile.read() 
     components.html(source_code, height = 1000,width=800)
+    
+    #countplot
+    st.header("Cluster Info")
+    
+    col1, col2 = st.beta_columns(2)
+    with col1:
+        st.header("Cluster Composition")
+        plot_countplot(title, number_of_clusters)
+
+    with col2:
+        st.header("Elbow Curve")
+        image_file_path = "image_files/" + title + ".png"
+        st.image(image_file_path, use_column_width=True)
+        
 
     if st.checkbox("Click to View the Co-occurence Dataset",False):
             chosen = st.radio("Dataset Filtered by Chi2 Significance",("0.05","0.01","0.001"))
@@ -196,9 +210,6 @@ elif choice == "Home":
             "dataset", df_edge
   
     
-    #countplot
-    st.header("Cluster Composition")
-    plot_countplot(title, number_of_clusters)
 
 
 # In[ ]:
