@@ -142,9 +142,9 @@ elif choice == "Home":
         rather than relying on a static dataset. For example, the job postings dataset can be readily 
         updated by re-scraping from Indeed.ca. Another dataset the app relies on is a comprehensive 
         dictionary of hard skills relevant in the data science industry. This dataset can also be 
-        updated by re-scraping. To do this, the scraper collects and ingests content from webpages, 
+        readily updated by re-scraping. For this, the scraper collects and ingests content from well-maintained webpages, 
         such as Google's Machine Learning Glossary and O'Reilly's Data Science Glossary. 
-        In this way, the insights of this app can evolve with the changing needs of the industry.''')
+        In this way, the insights from this app **evolves with the changing needs of the industry**.''')
     
     #header 1
     st.header('')
