@@ -1,23 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[5]:
+# In[12]:
 
 
-#import text processing libraries
+'''This script contains two classes. One for crawling job postings, and the other for crawling hard skills'''
+
+__author__ = 'Sahil Saxena'
+__email__ = 'sahil.saxena@outlook.com'
+
 import pandas as pd
-
-#import libraries for crawling and text processing
 from urllib.request import Request, urlopen
 import requests
 import re
 from bs4 import BeautifulSoup
 
-
-# In[12]:
-
-
 class Indeed_Data_Collector:
+    '''This class crawls job postings from indeed.ca, and saves the result in a csv file'''
 
     def __init__(self, job_titles_list, job_title_col, url_col, job_description_col,                 label_col, num_pages = 10, existing_file = None):
         
@@ -37,6 +36,8 @@ class Indeed_Data_Collector:
         df.to_csv(filepath)
     
     def _add_job_group(self, x):
+        '''assign group based on title wording in job posting'''
+        
         x = str(x).lower()
         if "data scien" in x:
             return "Data Scientist"
@@ -158,6 +159,9 @@ if __name__ == '__main__':
 
 
 class Tools_Collector:
+    '''This class crawls hard skills words from analyticsvidhya, datascienceglossary, 
+    Google's ML Glossary, Wiki's ML Glossary and Wiki's list of programming languages.
+    Results are saved in a csv file'''
 
     def __init__(self, word_col, existing_file = None):
         '''initialize variables'''
@@ -178,6 +182,7 @@ class Tools_Collector:
         return x
 
     def _get_words(self):
+        '''crawl various websites to build the hard skills list'''
         words = []
 
         #source analytics vidhya

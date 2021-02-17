@@ -4,12 +4,17 @@
 # In[1]:
 
 
-from _03_ModelVisualize import Modeling_and_Visualization
+#import modelcontainer to initalize models. modelcontainer internally calls the featureextractor class
+from _03_ModelContainer import Modeling_and_Visualization
+from yellowbrick.cluster import KElbowVisualizer
+from sklearn.cluster import SpectralClustering
+import matplotlib.pyplot as plt
 
 
 # In[2]:
 
 
+# initialize modelcontainer object
 job_title_col = "job_title"
 url_col = "url"
 job_description_col = "job_description"
@@ -17,14 +22,13 @@ label_col = "job_group"
 word_col = "word"
 encoded_job_title_col = "encoded_job_title"
 indeed_file = "data/indeed.csv"
-words_file = "data/words_1.csv"
+words_file = "data/words.csv"
 number_words_each_cluster = 5
 
-# initiate modelling and visualization object
 mc = Modeling_and_Visualization(job_title_col, url_col, job_description_col, label_col,                                      word_col, encoded_job_title_col, indeed_file, words_file, number_words_each_cluster)
 
 
-# In[3]:
+# In[ ]:
 
 
 #Save Wordclouds
@@ -33,7 +37,7 @@ job_group = "job_group"
 job_titles_list = ["Data Scientist", "Data Analyst", "Data Engineer", "Machine Learning Engineer"]
 job_description_col = "job_description"
 url_col = "url"
-number_of_clusters_upto = 5
+number_of_clusters_upto = 3
 last_dict_element = number_of_clusters_upto
 top_tools_dict = mc.fe.top_tools_dict
 
@@ -67,10 +71,29 @@ for max_clusters, dict_items in mc.net_dict.items():
         net.show(plot_name)
 
 
+# In[5]:
+
+
+#save elbow curve plots
+for job_title in job_titles_list:
+    
+    #obtain subset df
+    df_ds_subset, df_label_dict, topk_tf_idf_single, topk_tf_idf_phrase =    mc._add_cluster_label_each_title(mc.fe.df_tools, job_title, job_group, 3, job_description_col, url_col) 
+    df_ds_subset_new = df_ds_subset.drop(["cluster_label", "job_description", "url"], axis = 1)
+    
+    sc = SpectralClustering(n_clusters = 5, random_state=23, n_init = 100, affinity='rbf')
+    sc.fit(df_ds_subset_new)
+    model = KElbowVisualizer(sc, timings = False)
+    model.fit(df_ds_subset_new)
+    filepath = "image_files/" + job_title + ".png"
+    model.show(outpath=filepath)
+    plt.close()
+
+
 # In[6]:
 
 
-#save dataframes locally for app
+#save dataframe and network graph dictionary locally for app
 import numpy as np
 mc.df_tools_with_clusters.to_parquet("data/df_tools_with_clusters.parquet")
 np.save('data/df_edge_dict.npy', mc.df_edge_dict)
