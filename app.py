@@ -124,7 +124,7 @@ if choice == "About":
     st.markdown('''This app is inspired by a personal 
     need to understand Canadian industry needs better in the data science industry. 
     But hope this is able to help you as well.''')
-    st.markdown("Job postings dataset last updated January 06 2021.")
+    st.markdown("Job postings dataset last updated February 10, 2021.")
     st.markdown('''Designed by: **Sahil Saxena**''')
     st.markdown("This project is licensed under the terms of the MIT license.")
 
@@ -206,7 +206,7 @@ elif choice == "Home":
     file_path = "html_files/" + plot_name
     HtmlFile = open(file_path, 'r', encoding='utf-8')
     source_code = HtmlFile.read() 
-    components.html(source_code, height = 870,width=800)
+    components.html(source_code, height = 890,width=800)
     
     #countplot
     st.header("Cluster Composition")
