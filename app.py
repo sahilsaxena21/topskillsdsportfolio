@@ -121,8 +121,8 @@ st.markdown(html_temp.format('royalblue','white'),unsafe_allow_html=True)
 
 if choice == "About":
     st.markdown("")
-    st.markdown('''This app is inspired by a personal 
-    need to understand Canadian industry needs better in the data science industry. 
+    st.markdown('''This app is actually inspired by a personal 
+    motivation to understand Canadian data science industry needs better. 
     But hope this is able to help you as well.''')
     st.markdown("Job postings dataset last updated February 10, 2021.")
     st.markdown('''Designed by: **Sahil Saxena**''')
