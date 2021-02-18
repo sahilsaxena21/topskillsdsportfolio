@@ -142,7 +142,7 @@ elif choice == "Home":
         st.write('''This app was developed to stand the test of time (if you will!). 
         It's developed so it can create its own dataset 
         rather than relying on a static dataset. For example, the job postings dataset was created by crawling 
-        postings on Indeed.ca. Similarly, the dataset which stores the hard skills in data science was created by 
+        postings on Indeed.ca. Similarly, the dataset which stores the hard skills was created by 
         scraping webpages such as Google's Machine Learning Glossary, O'Reilly's Data Science Glossary and more. 
         This approach allows both datasets (that this app relies on) to be readily updated 
         (i.e. by simply re-running the crawlers). 
