@@ -134,17 +134,18 @@ elif choice == "Home":
     #Welcome message
     st.markdown(welcome_temp.format('white','black'),unsafe_allow_html=True)
     with st.beta_expander('''What's the point?'''):
+        
         st.write('''To help you upskill in a relevant way! 
         This app takes the leg work out by processing hundreds of job postings and delivering insights 
         programatically through carefully chosen exploratory visuals.''')
-        st.write('''This app was developed to stand the test of time. It's developed so it can create its own dataset 
-        rather than relying on a static dataset. For example, the job postings dataset can be readily 
-        updated by calling the indeed_crawler class which crawls postings from Indeed.ca. 
-        Another dataset the app relies on is a comprehensive 
-        dictionary of hard skills relevant in the data science industry. This dataset can also be 
-        readily updated. For this, the scraper collects and ingests content from well-maintained webpages, 
-        such as Google's Machine Learning Glossary and O'Reilly's Data Science Glossary. 
-        In this way, the insights from this app **evolves with the changing needs of the industry**.''')
+        
+        st.write('''This app was developed to stand the test of time (if you will!). 
+        It's developed so it can create its own dataset 
+        rather than relying on a static dataset. For example, the job postings dataset was created by crawling 
+        postings on Indeed.ca. Similarly, the dataset which stores the hard skills in data science was created by 
+        scraping webpages such as Google's Machine Learning Glossary, O'Reilly's Data Science Glossary and more. 
+        This approach allows both datasets (that this app relies on) to be readily updated (i.e. by simply re-running the crawlers). 
+        In this manner, the insights from this app is capable of evolving with the changing needs of the industry''')
     
     #header 1
     st.header('')
