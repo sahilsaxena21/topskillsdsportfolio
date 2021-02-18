@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
-'''This class extracts features from job descriptions. It is a helper script for the ModelContainer class'''
+'''
+Contains the helper class for the ModelContainer class.
+It uses NLP techniques to extract, process and encode features from job descriptions.
+'''
 
 __author__ = 'Sahil Saxena'
 __email__ = 'sahil.saxena@outlook.com'
@@ -24,9 +27,22 @@ from collections import Counter
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 class Feature_Extractor_and_Processor:
+    '''This class extracts, processes and encodes features from job descriptions'''
 
     def __init__(self, job_title_col, url_col, description_col,                  label_col, word_col, encoded_job_title_col, indeed_file, words_file):
-
+        '''       
+        Parameters
+        ----------
+        job_title_col: str. column name that contains the job titles of the job postings
+        url_col: str. column name that contains the urls of the job postings
+        description_col: str. column name that contains the job descriptions of the job postings
+        label_col: str. column name that contains the job group in set 
+                        {"Data Scientist", "Machine Learning Engineer", "Data Engineer","Data Analyst", "None"}
+        word_col: str. column name that contains the hard skills
+        encoded_job_title_col: str. column name that contains the encoded job group
+        df_indeed: pandas df. the dataframe with the scraped job postings
+        df_words: pandas df. the dataframe with the hard skills
+        '''
         #intialize attributes related to dataset
         self.job_title_col = job_title_col
         self.url_col = url_col
@@ -54,7 +70,7 @@ class Feature_Extractor_and_Processor:
         self.df = pd.DataFrame()
         self.top_tools_dict = {}
         
-        # Initialize phrase tree
+        # Initialize attributes related to keyphrase extraction
         self.grammar = self._initialize_grammar()
         self.stop = self._initialize_stopwords()
         self.text = """ initialize """
@@ -71,25 +87,41 @@ class Feature_Extractor_and_Processor:
         
     
     def _load_data(self, file):
+        '''Read a csv file from a provided directory. Returns a pandas dataframe'''
         df_temp = pd.read_csv(file, index_col=[0])
         return df_temp
     
     def _join_lists(self, lst1, lst2):
+        '''Take union of two lists and return the resultant list'''
         lst_full = lst1 + lst2
         return lst_full
     
     def _return_lists_intersection(self, lst1, lst2):
+        '''Take intersection of two lists and return the resultant list'''
         lst3 = [value for value in lst1 if value in lst2] 
         return lst3
         
     def _merge_dfs_horizontally(self, df1, df2, common_cols):
-        '''Efficient joining of two dataframes horizontally knowing the index of columns that are common between them'''
+        '''
+        Joins two dataframes horizontally.
+        
+        Arguments
+        ----------
+        df1: pandas df. the first dataframe
+        df2: pandas df. the second dataframe
+        common_cols: int. the first column index that is not a common column in df2 compared to df1
+        
+        Returns
+        -------
+        df_temp: pandas df. the merged dataframe 
+        '''
         df_temp = pd.concat([df1, df2.iloc[:, common_cols:]], axis=1)
         df_temp.drop_duplicates(inplace = True)
         df_temp.reset_index(drop = True, inplace = True)
         return df_temp
     
     def _job_title_encode(self, x):
+        '''Encodes job group and returns encoded value'''
         if x == "Data Scientist":
             return 0
         elif x == "Data Analyst":
@@ -100,11 +132,21 @@ class Feature_Extractor_and_Processor:
             return 3
     
     def _initialize_grammar(self):    
-        '''This grammar is described in the paper by S. N. Kim,
-        # T. Baldwin, and M.-Y. Kan.
-        # Evaluating n-gram based evaluation metrics for automatic
-        # keyphrase extraction.
-        # Technical report, University of Melbourne, Melbourne 2010.''' 
+        '''
+        This grammar is described in the paper by S. N. Kim,
+        T. Baldwin, and M.-Y. Kan.
+        Evaluating n-gram based evaluation metrics for automatic
+        keyphrase extraction.
+        Technical report, University of Melbourne, Melbourne 2010.
+        
+        Arguments
+        ----------
+        None
+        
+        Returns
+        -------
+        grammar: str. the initialized grammar for keyphrase extraction
+        ''' 
 
         grammar = r"""
             NBAR:
@@ -118,7 +160,7 @@ class Feature_Extractor_and_Processor:
     
     
     def _initialize_stopwords(self):    
-        '''set stop words for the processing steps''' 
+        '''Iniatialize stop words for the processing steps. Returns the set of stop words''' 
         stop = set(stopwords.words('english'))
         stop.add('achieve'); stop.add('analysis'); stop.add('analyst'); 
         stop.add('b'); stop.add('based'); stop.add('basic'); stop.add('casual'); stop.add('class'); 
@@ -138,7 +180,17 @@ class Feature_Extractor_and_Processor:
         return stop
     
     def _clean_words(self, x):
-        '''basic cleaning of text'''
+        '''
+        Removes all special characters
+        
+        Parameters
+        ----------
+        x: str. the text to be cleaned
+        
+        Returns
+        -------
+        x: str. the processed text
+        '''
         x = x.lower()
         x = re.sub(r'\([^)]*\)', "", x)
         x = re.sub("_[\_(\_[].*?[\)\]]", "", x)
@@ -146,31 +198,72 @@ class Feature_Extractor_and_Processor:
         return x
     
     def _clean_description(self, x):
-        letters_only = re.sub("[^a-zA-Z]",  # Search for all non-letters
-                              " ",          # Replace all non-letters with spaces
-                              str(x))
+        '''
+        Search for all non-letters and replace with spaces
+        
+        Parameters
+        ----------
+        x: str. the text to be cleaned
+        
+        Returns
+        -------
+        letters_only: str. the processed text
+        '''
+        
+        letters_only = re.sub("[^a-zA-Z]"," ", str(x))
         return letters_only
     
     def _execute_pre_processing(self):
+        '''
+        Calls two methods. 
+        One for pre-processing the job descriptions dataset
+        The other for pre-processing the hard skills dataset 
+        '''
         self._job_description_pre_processing(self.description_col, self.url_col)
         self._words_pre_processing(self.word_col)
         
     def _job_description_pre_processing(self, description_col, url_col):
+        '''
+        Pre-processor for the job descriptions dataset
+        
+        Parameters
+        ----------
+        description_col: str. the column name that contains the job descriptions
+        url_col: str. the column name that contains the urls
+        
+        Returns
+        -------
+        None
+        '''
+        
         self.df_indeed[description_col] = self.df_indeed[description_col].apply(lambda x: self._clean_description(str(x)))
         self.df_indeed.drop_duplicates(subset = [url_col], inplace = True)
         self.df_indeed.reset_index(drop = True, inplace = True)
         self.job_description = self.df_indeed[description_col].values
         
-    def _words_pre_processing(self, word_col): 
+    def _words_pre_processing(self, word_col):
+        '''
+        Pre-processor for the hard skills dataset
+        
+        Parameters
+        ----------
+        word_col: str. the column name that contains the hard skills
+        
+        Returns
+        -------
+        None
+        '''
         self.df_words[word_col] = self.df_words[word_col].apply(lambda x: self._clean_words(str(x)))
         self.df_words.drop_duplicates(subset = [word_col], inplace = True)
         self.df_words.reset_index(drop = True, inplace = True)
         self.word_list = self.df_words[word_col].tolist()
 
     def _save_data(self, df, file):
+        '''Write a pandas dataframe to a csv file in the provided directory'''
         df.to_csv(file)
         
     def _do_subset(self, counter, feature_names):
+        '''Filters a counter object by a list. Returns the filtered counter object '''
         return Counter({k: counter.get(k, 0) for k in feature_names})    
 
     # generator, generate leaves one by one
@@ -187,23 +280,24 @@ class Feature_Extractor_and_Processor:
         # word = lemmatizer.lemmatize(word)
         return word
 
-    # stop-words and length control
     def _acceptable_word(self, word):
-        """Checks conditions for acceptable word: length, stopword."""
+        """Checks conditions for acceptable word: stop-words and length control."""
         accepted = bool(1 <= len(word) <= 40
             and word.lower() not in self.stop)
         return accepted
 
-    # generator, create item once a time
+    
     def _get_terms(self, tree):
+        '''Generator, create item one at a time. Returns the phrase yield term'''
         for leaf in self._leaves(tree):
             term = [self._normalise(w) for w,t in leaf if self._acceptable_word(w) ]
             # Phrase only
             if len(term)>1:
                 yield term
     
-    # Flatten phrase lists to get tokens for analysis
+    
     def _flatten(self, npTokenList):
+        '''Flatten phrase lists to get tokens for analysis. Returns the flatlist'''
         finalList =[]
         for phrase in npTokenList:
             token = ''
@@ -212,12 +306,28 @@ class Feature_Extractor_and_Processor:
             finalList.append(token.rstrip())
         return finalList  
 
-    def preProcess(self, text):
-        text = text.lower()
-        return text
+#     def preProcess(self, text):
+#         '''Preprocessor method for the  text and returns the processed text'''
+#         text = text.lower()
+#         return text
     
     
     def get_subset_counter_list(self, job_description_values, features_list_single, features_list_phrase):
+        '''
+        Filters a counter object by two lists of tokens. 
+        Also removes stop words and zero count tokens.
+        
+        Parameters
+        ----------
+        job_description_values: numpy array. the numpy array representation of the job descriptions.
+        features_list_single: list. the list of tokens containing single terms
+        features_list_phrase: list. the list of tokens containing bigrams
+        
+        Returns
+        -------
+        topk_single: list. list of tuples of monograms. tuples contains the token name and the occurence count.
+        topk_phrase: list. list of tuples of bigrams. tuples contains the token name and the occurence count.
+        '''
         #make a counter list of all words and bi-words
         #then only take subset of it i.e. the ones that appear as features in the full_df
         counter_single = Counter()
@@ -252,7 +362,10 @@ class Feature_Extractor_and_Processor:
 
     
     def _boolean_encoding_single(self, k=50):
-        '''Boolean Encode Single Terms '''
+        '''
+        Applies boolean encoding to job description terms that match the monograms in topk_single attribute.
+        If the attribute is set to None, initialize this attribute.
+        '''
         
         #if no topk is passed, make a topk tuple list of frequent terms
         if self.topk_single == None:
@@ -285,7 +398,10 @@ class Feature_Extractor_and_Processor:
         
 
     def _boolean_encoding_phrase(self, k=50):
-        '''Boolean Encode Phrases '''
+        '''
+        Applies boolean encoding to job description terms that match the bigrams in topk_phrase attribute.
+        If the attribute is set to None, initialize this attribute.
+        '''
 
         # #if no topk is passed, make a topk tuple list of frequent terms
         if self.topk_phrase == None:
@@ -318,6 +434,21 @@ class Feature_Extractor_and_Processor:
         self.df_phrase.reset_index(drop = True, inplace = True)
     
     def _execute_feature_extraction(self, max_df = 0.9, min_df = 0.2):
+        '''
+        Executes feature extraction in a three step process. Monogram and bigram features are handled seprately.
+        1) Create a TF-IDF matrix
+        2) Force addition of hard skills from the hard skills dataset as features
+        3) Boolean encode all the features
+        
+        Parameters
+        ----------
+        max_df: int. the max_df parameter used within sklearn TFidfVectorizer class
+        min_df: int. the min_df parameter used within sklearn TFidfVectorizer class
+        
+        Returns
+        -------
+        None      
+        '''
 
         #tf-idf matrix for single words
         tfidf_single = TfidfVectorizer(stop_words = self.stop, max_df = max_df, min_df = min_df,                                        ngram_range = (1,1))
@@ -348,6 +479,11 @@ class Feature_Extractor_and_Processor:
         self._boolean_encoding_phrase()
         
     def _execute_post_processing(self):
+        '''
+        Executes post processing including:
+        1) Merging the dataframes which contains the monogram and bigram features
+        2) Initatialize df_tools and top_tools_dict to be used by the models 
+        '''
         
         #merge dataframes and topk
         self.df = self._merge_dfs_horizontally(self.df_single, self.df_phrase, common_cols = 4)
@@ -362,7 +498,7 @@ class Feature_Extractor_and_Processor:
         filter_cols = general_columns + common_columns_list
         self.df_tools = self.df[filter_cols]
         
-        #initiate top_tools_dict which stores the top technical terms used in job postings
+        #initiate top_tools_dict which stores the most frequently occuring hard skills for each job title
         top_tools_dict = {}
         first_col_index_with_features = 5
         take_top = 10
@@ -378,4 +514,10 @@ class Feature_Extractor_and_Processor:
             self.top_tools_dict[title] = df_term_frequency["tool"][0:take_top+1].tolist()
               
     
+
+
+# In[ ]:
+
+
+
 
