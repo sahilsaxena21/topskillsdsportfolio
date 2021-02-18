@@ -144,7 +144,8 @@ elif choice == "Home":
         rather than relying on a static dataset. For example, the job postings dataset was created by crawling 
         postings on Indeed.ca. Similarly, the dataset which stores the hard skills in data science was created by 
         scraping webpages such as Google's Machine Learning Glossary, O'Reilly's Data Science Glossary and more. 
-        This approach allows both datasets (that this app relies on) to be readily updated (i.e. by simply re-running the crawlers). 
+        This approach allows both datasets (that this app relies on) to be readily updated 
+        (i.e. by simply re-running the crawlers). 
         In this manner, the insights from this app is capable of evolving with the changing needs of the industry''')
     
     #header 1
@@ -177,8 +178,9 @@ elif choice == "Home":
     #header 2
     st.header('2. What are the top hard skills?')
     with st.beta_expander('How is this constructed?'):
-        st.write("A list of terms used in data science were scraped from various websites including Google's Machine Learning Glossary, Wikipedia and more. These are represented as 'hard skills' in this exploratory tool.")
-        
+        st.write('''A list of terms used in data science were scraped from various websites 
+        including Google's Machine Learning Glossary, Wikipedia and more. 
+        These are represented as 'hard skills' in this exploratory tool.''')    
     st.markdown('')  
     title=st.selectbox('Select Job Title',('Data Scientist','Data Engineer', 'Machine Learning Engineer', 'Data Analyst'))
     
@@ -196,12 +198,34 @@ elif choice == "Home":
     st.header(f"{title} Dependency Graph")
     
     with st.beta_expander('How is this constructed?'):
-        st.write("We first apply a clustering algorithm to see if job postings can be grouped in a certain way based on the hard skills in the job descriptions. These are the color coded cluster nodes in the dependency graph. To help with understanding cluster nodes in relation to top hard skills, the graph also shows the top hard skills in pink.")
-        st.write("Cluster nodes displayed on the graph are selected with some care. Each cluster node characterizes the trait attributes of each cluster the best. Hence, when taken collectively, the nodes for each cluster actually depicts what the cluster represents. This is also done programitically through the use of PMI.")
-        st.write("We then construct a dependency graph. A dependency graph shows the co-occurence of hard skills in a single job posting. Hence, hard skills that co-occur many times can be thought of as complementary and/or substitutive skills, depending on two skills being compared.")
-        st.write("The extent of co-occurence is measured using two metrics. Firsly, we calculate laplace smoothed positive pointwise mutual information (PPMI). This provides a measure of association of two terms after normalizing it with the frequency of each term. Secondly, we observe the statistical significance of independence of the given two terms using Chi2 test with Yates correction for further stringency. All terms that have co-occured atleast 5 times, with a default significance level of 0.05 are illustrated with bolded edges.")    
-        st.write("If you like, you can play around with other significance levels, and display the resultant co-occurence dataframe below.")    
-    
+        
+        st.write('''We first apply a clustering algorithm to see if job postings can be grouped in a certain way 
+        based on the hard skills in the job descriptions. These are the color coded cluster nodes in the dependency graph. 
+        To help with understanding cluster nodes in relation to top hard skills, the graph also shows the 
+        top hard skills in pink.''')
+  
+                 
+        st.write('''Cluster nodes displayed on the graph are selected with some care. 
+        Each cluster node characterizes the trait attributes of each cluster the best. Therefore, taken
+        collectively, the nodes for each cluster actually depicts what the cluster represents. 
+        This is also done programitically through the use of PMI.''')
+                 
+        st.write('''We then construct a dependency graph. A dependency graph shows the 
+        co-occurence of hard skills in a single job posting. Hence, hard skills that co-occur 
+        many times can be thought of as complementary and/or substitutive, depending 
+        on two skills being compared.''')
+                 
+        st.write('''The extent of co-occurence is measured using two metrics. 
+        Firsly, we calculate laplace smoothed positive pointwise mutual information (PPMI). 
+        This provides a measure of association between two terms after normalizing it by the 
+        occurence frequency of each term. Secondly, we calculate the statistical significance of 
+        independence of two given terms by applying the chi-squared test with Yates correction for 
+        added stringency. All terms that have co-occured in atleast 5 job postings, and is significant
+        at the 0.05 level is illustrated in the graph with thicker edge weights.''')
+                 
+        st.write('''If you like, you can play around with other significance levels, 
+        and display the resultant filtered co-occurence table below.''')
+                 
     parsed_string = title.lower().replace(" ", "_")
     plot_name = str(number_of_clusters) + "_" + str(parsed_string) + ".html"
     file_path = "html_files/" + plot_name
@@ -226,12 +250,6 @@ elif choice == "Home":
             "dataset", df_edge
   
     
-
-
-# In[ ]:
-
-
-
 
 
 # In[ ]:
