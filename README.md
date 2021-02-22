@@ -17,7 +17,7 @@ The following analytical approach was used to extracts insights visualized in th
 
 ## Key Insights
 
-![Hard Skills Dependency Graph of Records with Job Title of ‘Data Scientist’](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/ds_insights_graph.png)
+![Hard Skills Dependency Graph](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/ds_insights_graph.png)
 
 <sub>1 based on a sample of 163 job postings scraped from Indeed.ca between Nov. 2020 – Feb. 2021.</sub>
 
