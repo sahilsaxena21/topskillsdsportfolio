@@ -10,6 +10,8 @@ Refer to the Streamlit app here. https://share.streamlit.io/sahilsaxena21/topski
 
 ## Methodology
 
+![Methodology](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/methodology.PNG)
+
 
 
 ## Key Insights
