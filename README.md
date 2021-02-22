@@ -1,4 +1,4 @@
-# Characterizing Industry Needs in Data Science
+# Characterizing Skill Needs of Canada's Data Science Industry
 
 ## Executive Summary
 
