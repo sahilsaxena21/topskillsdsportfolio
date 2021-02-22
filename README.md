@@ -22,7 +22,7 @@ The following analytical approach was used to extracts insights visualized in th
 
 **Hard Skills Dependency Graph of Records with Job Title of ‘Data Scientist’ [1, 2, 3]**
 
-* <sub>[1] based on a sample of 163 job postings scraped from Indeed.ca between Nov. 2020 – Feb. 2021.</sub>
+* <sub>[1] based on a sample of _N=163_ job postings scraped from Indeed.ca between Nov. 2020 – Feb. 2021.</sub>
 * <sub>[2] nodes in pink illustrate the 10 most commonly occurring hard skills. Other node colors represents the clusters or groupings of job postings from their job descriptions, as segregated by the spectral clustering algorithm. Refer to code for details on hyperparameters and other algorithm implementation details.</sub>
 * <sub>[3] cluster node labels are the top 5 terms that best characterize a cluster, ranked based on Laplace Smoothed Positive Pointwise Mutual Information (PPMI)</sub>
 
