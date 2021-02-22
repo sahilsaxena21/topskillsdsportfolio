@@ -16,7 +16,7 @@ The following analytical approach was used to extracts insights visualized in th
 
 
 ## Key Insights
-<sub>for clarity, refer to the pdf here https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/Insights%20Interpretation%20Summary.pdf</sub>
+<sub>for better image clarity, refer to the pdf here https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/Insights%20Interpretation%20Summary.pdf</sub>
 
 ![Hard Skills Dependency Graph](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/ds_insights_graph.png)
 
