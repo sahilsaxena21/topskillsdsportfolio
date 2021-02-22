@@ -30,5 +30,5 @@ As per the above network graph, current industry needs can largely be seperated 
 1.	The “full-stack” data scientist roles with wide-ranging skills involving data **cleaning** (using **pandas**), creating **pipelines** and **interpreting** findings using visualization tools such as **tableau**
 2.	Roles that recognize use of **Kotlin**. Kotlin is a Java based programming language, growing rapidly to improve upon the current deficiencies of the programming language Scala.
 3.	Two more **research-based** roles found to be distinctly separated into two categories:
-    1. **Graph** and **Reinforcement** learning focussed roles with ability to develop algorithms from scratch
-    2. **Deep Learning** focussed roles with skills in developing deep neural networks (with LSTM found to be most sought after) along with other machine learning related know-how
+    1. **Graph** and **Reinforcement** learning focussed roles with ability to develop **algorithms** from **scratch**
+    2. **Deep Learning** focussed roles with skills in developing deep neural networks (with **LSTM** found to be most sought after) along with **other** machine learning related know-how
