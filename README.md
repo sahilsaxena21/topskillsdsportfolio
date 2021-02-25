@@ -1,4 +1,4 @@
-# Characterizing Skill Needs of Canada's Data Science Industry
+# Programmatic Characterization of Skill Needs in Canada's Data Science Industry
 
 ## Executive Summary
 
