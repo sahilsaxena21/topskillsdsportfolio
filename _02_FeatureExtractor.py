@@ -29,7 +29,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 class Feature_Extractor_and_Processor:
     '''This class extracts, processes and encodes features from job descriptions'''
 
-    def __init__(self, job_title_col, url_col, description_col,                  label_col, word_col, encoded_job_title_col, indeed_file, words_file):
+    def __init__(self, job_title_col, url_col, description_col, label_col, word_col, encoded_job_title_col, indeed_file, words_file):
         '''       
         Parameters
         ----------
@@ -451,12 +451,12 @@ class Feature_Extractor_and_Processor:
         '''
 
         #tf-idf matrix for single words
-        tfidf_single = TfidfVectorizer(stop_words = self.stop, max_df = max_df, min_df = min_df,                                        ngram_range = (1,1))
+        tfidf_single = TfidfVectorizer(stop_words = self.stop, max_df = max_df, min_df = min_df,ngram_range = (1,1))
         tfs_single = tfidf_single.fit_transform(self.job_description.astype('U'))
         self.features_list_single = tfidf_single.get_feature_names()
 
         #tf-idf matrix for phrase
-        tfidf_phrase = TfidfVectorizer(stop_words = self.stop, max_df = max_df, ngram_range = (2,2),                                        min_df = min_df)
+        tfidf_phrase = TfidfVectorizer(stop_words = self.stop, max_df = max_df, ngram_range = (2,2), min_df = min_df)
         tfs_phrase = tfidf_phrase.fit_transform(self.job_description.astype('U'))
         self.features_list_phrase = tfidf_phrase.get_feature_names()
 
@@ -472,7 +472,7 @@ class Feature_Extractor_and_Processor:
         self.features_list_phrase = list(dict.fromkeys(self.features_list_phrase))
         
         #get the topkwords tuple list for all the terms in the feature lists
-        self.topk_single, self.topk_phrase = self.get_subset_counter_list(self.job_description,                                                                             self.features_list_single, self.features_list_phrase)
+        self.topk_single, self.topk_phrase = self.get_subset_counter_list(self.job_description, self.features_list_single, self.features_list_phrase)
         
         #generate a boolean encoded dataframe of all features for single and phrase lists
         self._boolean_encoding_single()
