@@ -25,7 +25,7 @@ indeed_file = "data/indeed.csv"
 words_file = "data/words.csv"
 number_words_each_cluster = 5
 
-mc = Modeling_and_Visualization(job_title_col, url_col, job_description_col, label_col,                                      word_col, encoded_job_title_col, indeed_file, words_file, number_words_each_cluster)
+mc = Modeling_and_Visualization(job_title_col, url_col, job_description_col, label_col, word_col, encoded_job_title_col, indeed_file, words_file, number_words_each_cluster)
 
 
 # In[ ]:
@@ -56,10 +56,10 @@ for job_title_encode in range(0,len(job_titles_list)):
 #Process for saving network graphs
 
 #1. Perform clustering and get dict of top words for each cluster within each job_title
-mc.get_distinct_terms_each_cluster(mc.fe.df_tools, job_titles_list,                                 job_group, number_of_clusters_upto, last_dict_element,                                 job_description_col, url_col, top_tools_dict)
+mc.get_distinct_terms_each_cluster(mc.fe.df_tools, job_titles_list, job_group, number_of_clusters_upto, last_dict_element, job_description_col, url_col, top_tools_dict)
 
 #2. Build network graph of top words
-mc.generate_network_graph(mc.fe.df_tools, mc.fe.label_col, mc.fe.url_col,                           mc.fe.job_title_col, mc.fe.encoded_job_title_col, mc.fe.description_col)
+mc.generate_network_graph(mc.fe.df_tools, mc.fe.label_col, mc.fe.url_col, mc.fe.job_title_col, mc.fe.encoded_job_title_col, mc.fe.description_col)
 
 #3. Save graphs
 for max_clusters, dict_items in mc.net_dict.items():
@@ -78,7 +78,7 @@ for max_clusters, dict_items in mc.net_dict.items():
 for job_title in job_titles_list:
     
     #obtain subset df
-    df_ds_subset, df_label_dict, topk_tf_idf_single, topk_tf_idf_phrase =    mc._add_cluster_label_each_title(mc.fe.df_tools, job_title, job_group, 3, job_description_col, url_col) 
+    df_ds_subset, df_label_dict, topk_tf_idf_single, topk_tf_idf_phrase = mc._add_cluster_label_each_title(mc.fe.df_tools, job_title, job_group, 3, job_description_col, url_col) 
     df_ds_subset_new = df_ds_subset.drop(["cluster_label", "job_description", "url"], axis = 1)
     
     sc = SpectralClustering(n_clusters = 5, random_state=23, n_init = 100, affinity='rbf')
