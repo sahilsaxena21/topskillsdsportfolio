@@ -41,34 +41,36 @@ The first is a sample of N=454 job postings scraped from Indeed.ca from November
 Secondly, the dataset of hard skills (i.e. comprised of languages, frameworks, tools and technologies) used in data science is scraped from [AnalyticsVidhya] (https://www.analyticsvidhya.com/glossary-of-common-statistics-and-machine-learning-terms/), [DataScienceGlossary](http://www.datascienceglossary.org/), [Google Developer's Machine Learning Glossary](https://developers.google.com/machine-learning/glossary/), [Wikipedia's Glossary of Artificial Intelligence](https://en.wikipedia.org/wiki/Glossary_of_artificial_intelligence%22) and [Wikipedia's list of programming languages](https://en.m.wikipedia.org/wiki/List_of_programming_languages). A total of _**N=1,770**_ terms were scraped from the above web pages including terms such as **reinforcement learning, hive, flume, pandas and python**.
 
 
-### 1. Feature Extraction and Selection
-TF-IDF term weighting is used to extract the meaningful tokens (i.e. monograms and bigrams) from job descriptions as features. Then, Pointwise Mutual Information (PMI) is used as a measure of association between each token to the job title. A token that has a higher PMI value for a given job title indicates a higher probability of occurrence of the token in the job description for a given job title relative to all other job titles. Hence, this methodology is used to inform AQ 1 i.e. to identify the terms that distinguish one job title from another. This is then presented as word clouds. Word clouds includes the top 30 tokens with the highest PMI associated with ach job title as illustrated below.
+### 2. Feature Extraction and Selection
+TF-IDF term weighting is used to extract the meaningful tokens (i.e. monograms and bigrams) from job descriptions as features. Then, Pointwise Mutual Information (PMI) is used as a measure of association between each token to the job title. A token that has a higher PMI value for a given job title indicates a higher probability of occurrence of the token in the job description for a given job title relative to all other job titles. Hence, this methodology is used to inform **AQ 1** i.e. to identify the terms that distinguish one job title from another. This is then presented as word clouds. Word clouds includes the top 30 tokens with the highest PMI associated with ach job title as illustrated below.
 
 
-![Methodology](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/methodology.JPG)
+![Top Terms](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/wordcloud_all.png)
 
 
+A second feature selection step is performed to shortlist the features to the hard skills using the hard skills data base. These features are boolean encoded. Then a simple categorical bar plot is made plotting the hard skill to its occurrence frequency (in percent) in job postings within each title. This plot informs **AQ 2** i.e. to identify the top hard skills for each job title. An illustration for job title ‘data scientist’ is provided below.
+
+![Top Skills](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/hardskills.JPG)
 
 
+### 3. Clustering and Cluster Interpretation
+A graph based method (i.e. spectral clustering) is used to group job postings based on the hard skills mentioned in the job descriptions. A graph based method is used because of its robustness in high dimensionality compared to Eucleadian methods (e.g. k-means) because it uses **distance on the graph** (e.g. the number of shared neighbours) which is more meaningful in high-dimensions. Hence, if two job postings belong to the same cluster, it signifies that there is a **considerable overlap** in the set of skills mentioned in their job description.
 
-
-
-### 1. Clustering and Cluster Interpretation
-
-
-
-### 1. Co-occurence Significance Test
-
-
+We then identify the skills that **distinguish** one cluster from another by **identifying the trait characteristics of each cluster**. A similar approach is taken as in Step 2 i.e. using PMI, but using a modified version of this called laplace-smoothed positive pointwise mutual information (PPMI) to make the measure more robust to infrequent events. Again, the skill that has a higher PMI value for a given cluster indicates a higher probability of occurrence of the skill in the given cluster relative to all other clusters. The top 5 skills with the highest PPMI values are selected to represent each cluster. In this way, the approach informs **AQ 3** i.e. to **characterize** the different types of roles within each job title. This is then visualized as nodes on a skills dependency network graph as described further in the Step below. 
 
 
 
+### 4. Co-occurence Significance Test
+
+The non-parametric chi-squared test is used to identify the skills that significantly co-occur in a job posting using the occurrence frequency contingency table. If a given pair of skills is found to be statistically significant under this test, it signifies that the pair of skills is unlikely to be independent of each other. In other words, their co-occurence in a job posting is unlikely to be due to random chance. It is to be noted that a pair of skills found to be statistically significant could be interpreted by the user as either being **substitutive** (e.g. python and r) or **complementary** (e.g. python and sql) depending on the skills being compared. By identifying the skills that significantly co-occur together, **users can understand the complementary skills**, and consequently, make data-informed decisions on their upskill directions, in a way that leverages their existing skillset to improve their candidacy in this field (**AQ 5**).
 
 
 ## Key Insights
 <sub>for better image clarity, refer to the pdf here https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/Insights%20Interpretation%20Summary.pdf</sub>
 
 ![Hard Skills Dependency Graph](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/ds_insights_graph.png)
+
+![Interpretation](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/dstypes.JPG)
 
 **Hard Skills Dependency Graph of Records with Job Title of ‘Data Scientist’ [1, 2, 3]**
 
