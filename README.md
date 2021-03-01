@@ -41,7 +41,7 @@ The first is a sample of N=454 job postings scraped from Indeed.ca from November
 Secondly, the dataset of hard skills (i.e. comprised of languages, frameworks, tools and technologies) used in data science is scraped from [AnalyticsVidhya] (https://www.analyticsvidhya.com/glossary-of-common-statistics-and-machine-learning-terms/), [DataScienceGlossary](http://www.datascienceglossary.org/), [Google Developer's Machine Learning Glossary](https://developers.google.com/machine-learning/glossary/), [Wikipedia's Glossary of Artificial Intelligence](https://en.wikipedia.org/wiki/Glossary_of_artificial_intelligence%22) and [Wikipedia's list of programming languages](https://en.m.wikipedia.org/wiki/List_of_programming_languages). A total of _**N=1,770**_ terms were scraped from the above web pages including terms such as **reinforcement learning, hive, flume, pandas and python**.
 
 
-### 2. Feature Extraction and Selection
+### 2. Feature Engineering
 TF-IDF term weighting is used to extract the meaningful tokens (i.e. monograms and bigrams) from job descriptions as features. Then, Pointwise Mutual Information (PMI) is used as a measure of association between each token to the job title. A token that has a higher PMI value for a given job title indicates a higher probability of occurrence of the token in the job description for a given job title relative to all other job titles. Hence, this methodology is used to inform **AQ 1** i.e. to identify the terms that distinguish one job title from another. This is then presented as word clouds. Word clouds includes the top 30 tokens with the highest PMI associated with ach job title as illustrated below.
 
 
