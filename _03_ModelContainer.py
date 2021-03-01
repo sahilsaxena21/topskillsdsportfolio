@@ -38,9 +38,9 @@ from _02_FeatureExtractor import Feature_Extractor_and_Processor
 
 class Modeling_and_Visualization:
     
-    def __init__(self, job_title_col, url_col, job_description_col,                  label_col, word_col, encoded_job_title_col, indeed_file, words_file, number_words_each_cluster):
+    def __init__(self, job_title_col, url_col, job_description_col, label_col, word_col, encoded_job_title_col, indeed_file, words_file, number_words_each_cluster):
 
-        self.fe = Feature_Extractor_and_Processor(job_title_col, url_col, job_description_col, label_col,                                      word_col, encoded_job_title_col, indeed_file, words_file)
+        self.fe = Feature_Extractor_and_Processor(job_title_col, url_col, job_description_col, label_col, word_col, encoded_job_title_col, indeed_file, words_file)
     
         self.df_tools_with_clusters = self.fe.df_tools.copy()
         self.number_words_each_cluster = number_words_each_cluster
@@ -180,7 +180,7 @@ class Modeling_and_Visualization:
         return df_ds_subset, df_label_dict, topk_tf_idf_single, topk_tf_idf_phrase
           
     
-    def _get_high_pmi_words_each_cluster(self, df_label_dict, topk_tf_idf_single, topk_tf_idf_phrase,                           df_ds_subset, job_description_col):
+    def _get_high_pmi_words_each_cluster(self, df_label_dict, topk_tf_idf_single, topk_tf_idf_phrase, df_ds_subset, job_description_col):
         
         '''Returns dictionary of top pmi words for each cluster_label '''
         
@@ -231,7 +231,7 @@ class Modeling_and_Visualization:
                 self.topwords_by_title_dict[max_clusters][job_title_key] = temp_list
 
     
-    def get_distinct_terms_each_cluster(self, df_tools, job_titles_list, job_group,                                         number_of_clusters_upto, last_dict_element,                                         job_description_col, url_col, top_tools_dict):  
+    def get_distinct_terms_each_cluster(self, df_tools, job_titles_list, job_group, number_of_clusters_upto, last_dict_element, job_description_col, url_col, top_tools_dict):  
         
         '''get distinct terms and store in a dictionary'''
         for number_of_clusters in range(2, number_of_clusters_upto+1):
@@ -239,9 +239,9 @@ class Modeling_and_Visualization:
             self.top_words_by_cluster_dict[number_of_clusters] = {}
             
             for job_title in job_titles_list:
-                df_ds_subset, df_label_dict, self.topk_single, self.topk_phrase =                 self._add_cluster_label_each_title(df_tools, job_title, job_group,  number_of_clusters, job_description_col, url_col)
+                df_ds_subset, df_label_dict, self.topk_single, self.topk_phrase = self._add_cluster_label_each_title(df_tools, job_title, job_group,  number_of_clusters, job_description_col, url_col)
                 
-                self.top_words_by_cluster_dict[number_of_clusters][job_title] =                 self._get_high_pmi_words_each_cluster(df_label_dict, self.topk_single,                                                       self.topk_phrase, df_ds_subset, job_description_col)
+                self.top_words_by_cluster_dict[number_of_clusters][job_title] = self._get_high_pmi_words_each_cluster(df_label_dict, self.topk_single, self.topk_phrase, df_ds_subset, job_description_col)
 
                 #last element of this dictionary represents the topwords
                 self.top_words_by_cluster_dict[number_of_clusters][job_title][number_of_clusters] = top_tools_dict[job_title].copy()
@@ -256,7 +256,7 @@ class Modeling_and_Visualization:
         self._get_distinct_terms_each_title()
           
         
-    def _get_edges_df(self, df_tools_temp, job_title, clean_job_title_col, url_col, job_title_col,                                  cluster_label_col, job_description_col,                                  top_words_by_cluster_dict, last_dict_element):
+    def _get_edges_df(self, df_tools_temp, job_title, clean_job_title_col, url_col, job_title_col, cluster_label_col, job_description_col, top_words_by_cluster_dict, last_dict_element):
 
         '''Makes a word co-occurence dataframe from job descriptions'''
         
@@ -290,7 +290,7 @@ class Modeling_and_Visualization:
         c, p, dof, expected = chi2_contingency(table)    
         return np.round(p,3)
     
-    def _add_edges(self, df_tools, clean_job_title_col, url_col, job_title_col,                      cluster_label_col, job_description_col):    
+    def _add_edges(self, df_tools, clean_job_title_col, url_col, job_title_col, cluster_label_col, job_description_col):    
         '''adds edges to the network graph'''
         
         for max_clusters, dict_items in self.topwords_by_title_dict.items():
@@ -343,7 +343,7 @@ class Modeling_and_Visualization:
                 
                 
                 #get coocurence matrix in the form of an edge dataframe for the network graph
-                df_edge = self._get_edges_df(df_tools, job_title, clean_job_title_col, url_col, job_title_col,                                  cluster_label_col, job_description_col,                                  self.top_words_by_cluster_dict, max_clusters)
+                df_edge = self._get_edges_df(df_tools, job_title, clean_job_title_col, url_col, job_title_col, cluster_label_col, job_description_col, self.top_words_by_cluster_dict, max_clusters)
                 
                 df_edge = df_edge[(df_edge['word_1'].isin(nodes_list)) & (df_edge['word_2'].isin(nodes_list))]
 
@@ -351,7 +351,7 @@ class Modeling_and_Visualization:
                 df_edge["word_1_count"] = df_edge["word_1"].apply(lambda x: self.freqReviewDf[str(x)].sum() + 1)
                 df_edge["word_2_count"] = df_edge["word_2"].apply(lambda x: self.freqReviewDf[str(x)].sum() + 1)
                 df_edge["cooccur_count"] = df_edge["cooccur_count"].apply(lambda x: x + 1)                
-                df_edge["pmi_temp"] = total_word_count_laplace_smoothing *                                         (df_edge["cooccur_count"]) / (df_edge["word_1_count"] * df_edge["word_2_count"])
+                df_edge["pmi_temp"] = total_word_count_laplace_smoothing * (df_edge["cooccur_count"]) / (df_edge["word_1_count"] * df_edge["word_2_count"])
                 df_edge["pmi"] = df_edge["pmi_temp"].apply(lambda x: np.round(math.log(x,2),0))
                 
                 df_edge['p_value_chi2'] = df_edge.apply(lambda row : self._calculate_chi2(row['word_1_count'], 
@@ -374,10 +374,10 @@ class Modeling_and_Visualization:
                     named_title = "pmi:" + str(tuple_item[2]) + ", p-value:" + str(tuple_item[3])
                     
                     if (tuple_item[3] < significance_value) & (tuple_item[2] != 0) :
-                        self.net_dict[max_clusters][job_title].add_edge(tuple_item[0],tuple_item[1],                                                                         title = named_title, physics = False,                                                                       width = 0.5)
+                        self.net_dict[max_clusters][job_title].add_edge(tuple_item[0],tuple_item[1], title = named_title, physics = False, width = 0.5)
                     
                     else:
-                        self.net_dict[max_clusters][job_title].add_edge(tuple_item[0],tuple_item[1],                                                                         title = named_title, physics = False,                                                                        width = 0.0005)
+                        self.net_dict[max_clusters][job_title].add_edge(tuple_item[0],tuple_item[1], title = named_title, physics = False, width = 0.0005)
                         
 
     def _add_nodes(self):
