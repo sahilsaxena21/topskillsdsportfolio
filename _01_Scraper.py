@@ -157,7 +157,7 @@ class JobPostingsCollector:
             for search_title in self.job_titles_list:
                 for page_num in range(0, self.num_pages+1):    
                     search_title = str(search_title).replace(" ", "+").lower()
-                    search_page_url = "https://ca.indeed.com/jobs?q=" + str(search_title) +                                        "&l=Canada&jt=fulltime&start=" + str(page_num)
+                    search_page_url = "https://ca.indeed.com/jobs?q=" + str(search_title) + "&l=Canada&jt=fulltime&start=" + str(page_num)
                     source = requests.get(search_page_url).text
                     soup = BeautifulSoup(source, "html.parser")
 
@@ -244,7 +244,7 @@ if __name__ == '__main__':
     num_pages = 1
     
     job_titles_list = ["data scientist", "machine learning engineer", "data engineer", "data analyst"]
-    data = JobPostingsCollector(job_titles_list = job_titles_list, num_pages = num_pages,                                  label_col = label_col, job_description_col = job_description_col,                                 url_col = url_col, job_title_col = job_title_col,                                 existing_file = indeed_csv_file)
+    data = JobPostingsCollector(job_titles_list = job_titles_list, num_pages = num_pages, label_col = label_col, job_description_col = job_description_col,                                 url_col = url_col, job_title_col = job_title_col,                                 existing_file = indeed_csv_file)
     print(data.indeed_df.shape)
 
 
