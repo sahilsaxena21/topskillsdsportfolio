@@ -25,7 +25,7 @@ class JobPostingsCollector:
     the results locally in a csv file.
     '''
 
-    def __init__(self, job_titles_list, job_title_col, url_col, job_description_col,                 label_col, num_pages = 10, existing_file = None):
+    def __init__(self, job_titles_list, job_title_col, url_col, job_description_col, label_col, num_pages = 10, existing_file = None):
         '''       
         Attributes
         ----------
