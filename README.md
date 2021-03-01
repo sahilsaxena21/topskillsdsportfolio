@@ -6,8 +6,8 @@ The analysis is taken up by 4 python scripts and 4 python classes as outlined be
 
 1. [01_Scraper.py](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_01_Scraper.py) contains two classes, the JobPostingsCollector and HardSkillsCollector to create the datasets for this analysis. Both the scrapers are written in Python using the web interaction library Beautiful Soup.
 2. [02_FeatureExtractor.py](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_02_FeatureExtractor.py) contains Feature_Extractor_and_Processor, a helper class for the ModelContainer class to process the job descriptions, conduct feature extraction and selection.
-3. [03_ModelContainer](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_03_ModelContainer.py) contains the Modeling_and_Visualization class which contains code for various statistical and machine learning models used in the analysis including Pointwise Mutual Information (PMI), spectral clustering, and the network graphs.
-4. [04_SaveFinalFiles](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_04_SaveFinalFiles.py) calls on the Modeling_and_Visualization class to apply the models, and then save the results locally. 
+3. [03_ModelContainer.py](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_03_ModelContainer.py) contains the Modeling_and_Visualization class which contains code for various statistical and machine learning models used in the analysis including Pointwise Mutual Information (PMI), spectral clustering, and the network graphs.
+4. [04_SaveFinalFiles.py](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_04_SaveFinalFiles.py) calls on the Modeling_and_Visualization class to apply the models, and then save the results locally. 
 
 
 ## Executive Summary
@@ -31,7 +31,7 @@ We break down the problem into Analytical Questions (AQs) to be informed by our 
 
 The following analytical approach was used to extracts insights visualized in the Streamlit app.
 
-![Methodology](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/methodology.JPG)
+![Methodology](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/methodology.png)
 
 
 ### 1. Data Collection
