@@ -69,7 +69,7 @@ The non-parametric chi-squared test is used to identify the skills that signific
 ## Key Insights
 <sub>for better image clarity, refer to the pdf here https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/Insights%20Interpretation%20Summary.pdf</sub>
 
-![Insights and Interpretation](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/dstypes.JPG)
+![Insights and Interpretation](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/dstypes_all.JPG)
 
 **Hard Skills Dependency Graph of Records with Job Title of ‘Data Scientist’ [1, 2, 3]**
 
