@@ -20,7 +20,7 @@ This exploratory study aims to provide insights to such users at the fundamental
 
 
 ## Analytics Problem Framing
-We break down the problem into Analytical Questions (AQs) to be informed by our app. These are as follows: 
+We break down the problem into Analytical Questions (AQs) to be informed by our analysis. These are as follows: 
 * **AQ 1**: Amongst the several job titles in the data science industry (i.e. 'data scientist', 'data analyst', 'machine learning engineer' and 'data engineer'), which job title is most relevant to me? In other words, how does one job title distinguish from the other?
 * **AQ 2**: What hard skills are the most sought after? In other words, which languages, tools, technologies and frameworks occur most frequently in job postings for each job title?
 * **AQ 3**: Given the variance in roles within each job title, what are the common types of roles within each job title so I can hone down and up-skill for that particular role? Which type is the most in-demand?
