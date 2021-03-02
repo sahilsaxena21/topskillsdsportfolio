@@ -1,4 +1,4 @@
-# Programmatic Characterization of Skill Needs in Canada's Data Science Industry
+# Programmatic Characterization of Skill Needs in Data Science
 
 
 ## Scripts
