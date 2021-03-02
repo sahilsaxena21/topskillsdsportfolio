@@ -71,7 +71,7 @@ The non-parametric chi-squared test is used to identify the skills that signific
 
 ![Insights and Interpretation](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/dstypes_all.JPG)
 
-**Interpreting Types of Roles in Canada's Data Science Industry for Job Title ‘Data Scientist’ [1, 2, 3]**
+**Interpreting Types of Roles for Job Title ‘Data Scientist’ [1, 2, 3]**
 
 As per the above network graph, current industry needs can largely be seperated into 3 types of data scientists. These are inferred from the figure as below:
 
