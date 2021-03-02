@@ -43,7 +43,7 @@ Secondly, the dataset of hard skills (i.e. comprised of languages, frameworks, t
 
 
 ### 2. Feature Engineering
-TF-IDF term weighting is used to extract the meaningful tokens (i.e. monograms and bigrams) from job descriptions as features. Then, Pointwise Mutual Information (PMI) is used as a measure of association between each token to the job title. A token that has a higher PMI value for a given job title indicates a higher probability of occurrence of the token in the job description for a given job title relative to all other job titles. Hence, this methodology is used to inform **AQ 1 i.e. to identify the terms that distinguish one job title from another**. This is then presented as word clouds. Word clouds includes the top 30 tokens with the highest PMI associated with ach job title as illustrated below.
+TF-IDF term weighting is used to extract the meaningful tokens (i.e. monograms and bigrams) from job descriptions as features. Then, Pointwise Mutual Information (PMI) is used as a measure of association between each token to the job title. A token that has a higher PMI value for a given job title indicates a higher probability of occurrence of the token in the given job title _relative to all other job titles_. Hence, this methodology is used to inform **AQ 1 i.e. to identify the terms that distinguish one job title from another**. This is then presented as word clouds. Word clouds includes the top 30 tokens with the highest PMI associated with ach job title as illustrated below.
 
 
 ![Top Terms](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/wordcloud_all.png)
