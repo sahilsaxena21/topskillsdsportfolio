@@ -26,9 +26,10 @@ Although aspiring individuals looking to enter this industry typically already h
 
 Firstly, domain knowledge is used to identify the scope of this analysis. In this project, 4 job titles are considered which I know to be commonly used job titles within Canada's data science industry.   These are **'data scientist', 'machine learning engineer', 'data analyst' and 'data engineer'**. 
 
-I then break down the problem of our user (i.e. individuals looking to work in Canada's DS industry and who want to understand the industry's skill needs) into specific **Analytical Questions (AQs)** to be informed by our project. 
+Secondly, the problem of our user (i.e. in this project intended users are the individuals looking to work in Canada's DS industry and who want to understand the industry's skill needs) is broken down into specific **Analytical Questions (AQs)** .  
 
-These are as follows: 
+This project aims to inform the following Analytical Questionts (AQs): 
+
 * **AQ 1**: Amongst the several job titles in the data science industry (i.e. 'data scientist', 'data analyst', 'machine learning engineer' and 'data engineer'), which job title is most relevant to me? In other words, how does one job title distinguish from the other?
 * **AQ 2**: What hard skills are the most sought after? In other words, which languages, tools, technologies and frameworks occur most frequently in job postings for each job title?
 * **AQ 3**: Given the variance in roles within each job title, what are the different types of roles within each job title so I can plan my up-skilling to focus on one particular role?
