@@ -24,9 +24,9 @@ Although aspiring individuals looking to enter this industry typically already h
 
 ## Analytics Problem Framing
 
-Firstly, I use my domain knowledge to identify the scope of this analysis. In this project, we consider 4 job titles which we know to be common titles used in job postings within Canada's data science industry.   These are **'data scientist', 'machine learning engineer', 'data analyst' and 'data engineer'**. 
+Firstly, domain knowledge is used to identify the scope of this analysis. In this project, 4 job titles are considered which I know to be commonly used job titles within Canada's data science industry.   These are **'data scientist', 'machine learning engineer', 'data analyst' and 'data engineer'**. 
 
-Then, I break down the problem of our user (i.e. individuals looking to work in Canada's DS industry and who want to understand the industry's skill needs) into specific **Analytical Questions (AQs)** to be informed by our project. 
+I then break down the problem of our user (i.e. individuals looking to work in Canada's DS industry and who want to understand the industry's skill needs) into specific **Analytical Questions (AQs)** to be informed by our project. 
 
 These are as follows: 
 * **AQ 1**: Amongst the several job titles in the data science industry (i.e. 'data scientist', 'data analyst', 'machine learning engineer' and 'data engineer'), which job title is most relevant to me? In other words, how does one job title distinguish from the other?
