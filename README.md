@@ -9,10 +9,9 @@ The project is taken up by 4 python scripts and 4 python classes as outlined bel
 3. [03_ModelContainer.py](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_03_ModelContainer.py) contains the Modeling_and_Visualization class which contains code for various statistical and machine learning models used in the analysis including Pointwise Mutual Information (PMI), spectral clustering, and the network graphs.
 4. [04_SaveFinalFiles.py](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_04_SaveFinalFiles.py) calls on the Modeling_and_Visualization class to apply the models, and then save the results locally. 
 
+Refer to the Streamlit app here: https://share.streamlit.io/sahilsaxena21/topskillsdsportfolio/main/app.py
 
 ## Executive Summary
-
-Refer to the Streamlit app here: https://share.streamlit.io/sahilsaxena21/topskillsdsportfolio/main/app.py
 
 Data Science is a rapidly booming industry, attracting talent from a variety of educational backgrounds. It is also an inter-disciplinary one, because in practice, it utilizes techniques and theories drawn from many fields within the context of mathematics, statistics, computer science, domain knowledge and information science. 
 
