@@ -14,13 +14,24 @@ The analysis is taken up by 4 python scripts and 4 python classes as outlined be
 
 Refer to the Streamlit app here: https://share.streamlit.io/sahilsaxena21/topskillsdsportfolio/main/app.py
 
-Data Science is a rapidly booming industry, attracting talent from a variety of educational backgrounds. It is also an inter-disciplinary one, because in practice, it utilizes techniques and theories drawn from many fields within the context of mathematics, statistics, computer science, domain knowledge and information science. Some of the more common job titles within this industry includes data scientist, machine learning engineer, data analyst and data engineer. However, due to a lack of standardization of these job roles, the set of skills that distinguish one job title from another is not often clear. Moreover, given the broad set of tools, technologies and frameworks in this industry, it is not uncommon for two jobs to require a different set of skills, even if the job titles are exactly the same. Hence, aspiring individuals who are new to data science, but are looking to enter into this industry may find it confusing to do so. These individuals want to identify what skills are in-demand, so they can take appropriate steps to up-skill to improve their candidacy and break into this industry in the Canadian context.
+Data Science is a rapidly booming industry, attracting talent from a variety of educational backgrounds. It is also an inter-disciplinary one, because in practice, it utilizes techniques and theories drawn from many fields within the context of mathematics, statistics, computer science, domain knowledge and information science. 
 
-This exploratory study aims to provide insights to such users at the fundamental level. We use job descriptions in online job postings as an indicator of the baseline set of skill requirements sought after by employers. An ML pipeline is developed that scrapes job postings from Indeed.ca (N=454), processes these descriptions, and delivers insights to users programmatically. Although aspiring individuals looking to enter this industry typically already have access to such postings and can take this process up by themselves, if this process is not programmatic, the user would have to read through the job descriptions manually, while keeping a record of the skills enlisted in each one, which takes time and effort. Moreover, data science is an evolving field, and hence this process would need to be repeated every so often to keep the results current.
+Due to a lack of standardization of job roles in data science, the skill needs of the industry is not always clear. In fact, it is not uncommon for two jobs to require a different set of skills, even if the job titles are exactly the same. This ambiguity is further worsened by the wide array of tools, technologies, frameworks and languages available.
+
+As a result, aspiring individuals who are new to data science, but are looking to enter into this industry may find it confusing to do so. These individuals want to **identify the skills in high demand by employers, so they can take appropriate steps to up-skill** to improve their candidacy to break into this lucrative industry in the Canadian context.
+
+This exploratory study aims to provide insights to such users at the fundamental level. Job descriptions from online job postings is used as an indicator of the baseline set of skills sought after by employers. An NLP pipeline driven by an unsupervised learning algorithm is developed that scrapes job postings from Indeed.ca (N=454), cleans them, and delivers insights to users programmatically. 
+
+Although aspiring individuals looking to enter this industry typically already have access to such postings and can take this process up by themselves, if this process is not programmatic, the user would have to read through the job descriptions manually, while keeping a record of the skills enlisted in each one, which takes time and effort. Moreover, data science is an evolving field, and hence this process would need to be repeated every so often to keep the results current.
 
 
 ## Analytics Problem Framing
-We break down the problem into Analytical Questions (AQs) to be informed by our analysis. These are as follows: 
+
+Firstly, we use our domain knowledge to identify the scope of this analysis. In this project, we consider 4 job titles which we know to be common titles used in job postings within Canada's data science industry.   These are **'data scientist', 'machine learning engineer', 'data analyst' and 'data engineer'**. 
+
+We then break down the problem of our user (i.e. individuals looking for work in the DS industry) into specific Analytical Questions (AQs) to be informed by our project. 
+
+These are as follows: 
 * **AQ 1**: Amongst the several job titles in the data science industry (i.e. 'data scientist', 'data analyst', 'machine learning engineer' and 'data engineer'), which job title is most relevant to me? In other words, how does one job title distinguish from the other?
 * **AQ 2**: What hard skills are the most sought after? In other words, which languages, tools, technologies and frameworks occur most frequently in job postings for each job title?
 * **AQ 3**: Given the variance in roles within each job title, what are the different types of roles within each job title so I can focus and up-skill towards one particular role? Which type is the most in-demand?
