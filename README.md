@@ -13,9 +13,7 @@ Refer to the Streamlit app here: https://share.streamlit.io/sahilsaxena21/topski
 
 ## Executive Summary
 
-Data Science is a rapidly booming industry, attracting talent from a variety of educational backgrounds. It can be regarded as an inter-disciplinary field, drawing techniques and theories in the context of mathematics, statistics, computer science and information science. 
-
-Due to a lack of standardization of job roles in data science, the skill needs of the industry is not always clear. In fact, it is not uncommon for two jobs to require a different set of skills, even if the job titles are exactly the same. This ambiguity is further worsened by the wide array of tools, technologies, frameworks and languages available.
+Data Science is a rapidly booming field, attracting talent from a variety of educational backgrounds to enter into this industry. However, due to a lack of standardization of job roles, the skill needs of the industry is not always clear. In fact, it is not uncommon for two jobs to require a different set of skills, even if the job titles are exactly the same. This ambiguity is further worsened by the wide array of tools, technologies, frameworks and languages available.
 
 As a result, aspiring individuals who are new to data science, but are looking to enter into this industry may find it confusing to do so. These individuals want to **identify the skills in high demand by employers, so they can take appropriate steps to up-skill** to improve their candidacy to break into this lucrative industry in the Canadian context.
 
