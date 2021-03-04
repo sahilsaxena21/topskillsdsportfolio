@@ -24,7 +24,7 @@ from IPython.core.display import display, HTML
 
 html_temp = """
             <div style="background-color:{};padding:10px;border-radius:10px">
-            <h1 style="color:{};text-align:center;">Exploring Industry Needs in Data Science</h1>
+            <h1 style="color:{};text-align:center;">Programmatic Characterization of Skill Needs in Data Science</h1>
             </div>
             """
 
@@ -121,10 +121,7 @@ st.markdown(html_temp.format('royalblue','white'),unsafe_allow_html=True)
 
 if choice == "About":
     st.markdown("")
-    st.markdown('''This app is actually inspired by a personal 
-    motivation to understand Canadian data science industry needs better. 
-    But hope this is able to help you as well.''')
-    st.markdown("Job postings dataset last updated February 10, 2021.")
+    st.markdown("Job postings dataset last updated February 20, 2021.")
     st.markdown('''Designed by: **Sahil Saxena**''')
     st.markdown("This project is licensed under the terms of the MIT license.")
 
@@ -139,18 +136,17 @@ elif choice == "Home":
         This app takes the leg work out by processing hundreds of job postings and delivering insights 
         programatically through carefully chosen exploratory visuals.''')
         
-        st.write('''This app was developed to stand the test of time (if you will!). 
+        st.write('''This app was developed to evolve with the changing needs of the industry. 
         It's developed so it can create its own dataset 
         rather than relying on a static dataset. For example, the job postings dataset was created by crawling 
         postings on Indeed.ca. Similarly, the dataset which stores the hard skills was created by 
         scraping webpages such as Google's Machine Learning Glossary, O'Reilly's Data Science Glossary and more. 
         This approach allows both datasets (that this app relies on) to be readily updated 
-        (i.e. by simply re-running the crawlers). 
-        In this manner, the insights from this app is capable of evolving with the changing needs of the industry''')
+        (i.e. by simply re-running the web scraper scripts)''')
     
     #header 1
     st.header('')
-    st.header('1. What are the key words associated with each job title?')
+    st.header('1. What key words distinguish one job title from another?')
    
     with st.beta_expander('How is this constructed?'):
         st.write('''Word clouds are populated programatically using Pointwise Mutual Information 
@@ -176,7 +172,7 @@ elif choice == "Home":
         st.image("image_files/wordcloud_3.png", use_column_width=True)        
         
     #header 2
-    st.header('2. What are the top hard skills?')
+    st.header('2. What are the most sought after hard skills?')
     with st.beta_expander('How is this constructed?'):
         st.write('''A list of terms used in data science were scraped from various websites 
         including Google's Machine Learning Glossary, Wikipedia and more. 
@@ -191,7 +187,7 @@ elif choice == "Home":
     plot_bar_chart(df_tools, title)
 
     #header 3
-    st.header('3. How can we characterize postings within the job title?')
+    st.header('3. What are the different types of roles within each job title?')
     number_of_clusters = st.selectbox('Choose Number of Clusters',(2,3,4,5))
     
     #header 4
@@ -215,17 +211,6 @@ elif choice == "Home":
         many times can be thought of as complementary and/or substitutive, depending 
         on two skills being compared.''')
                  
-        st.write('''The extent of co-occurence is measured using two metrics. 
-        Firsly, we calculate laplace smoothed positive pointwise mutual information (PPMI). 
-        This provides a measure of association between two terms after normalizing it by the 
-        occurence frequency of each term. Secondly, we calculate the statistical significance of 
-        independence of two given terms by applying the chi-squared test with Yates correction for 
-        added stringency. All terms that have co-occured in atleast 5 job postings, and is significant
-        at the 0.05 level is illustrated in the graph with thicker edge weights.''')
-                 
-        st.write('''If you like, you can play around with other significance levels, 
-        and display the resultant filtered co-occurence table below.''')
-                 
     parsed_string = title.lower().replace(" ", "_")
     plot_name = str(number_of_clusters) + "_" + str(parsed_string) + ".html"
     file_path = "html_files/" + plot_name
@@ -240,16 +225,32 @@ elif choice == "Home":
     #Elbow method
     st.header("Elbow Method")
     image_file_path = "image_files/" + title + ".png"
-    st.image(image_file_path, use_column_width=True)    
-
+    st.image(image_file_path, use_column_width=True)
+    
+    
+    #header 5
+    st.header('4. What are the significantly co-occuring skills?')
+  
+    with st.beta_expander('How is this constructed?'): 
+    
+        st.write('''The extent of co-occurence is measured using two metrics. 
+        Firsly, we calculate laplace smoothed positive pointwise mutual information (PPMI). 
+        This provides a measure of association between two terms after normalizing it by the 
+        occurence frequency of each term. Secondly, we calculate the statistical significance of 
+        independence of two given terms by applying the chi-squared test with Yates correction for 
+        added stringency. All terms that have co-occured in atleast 5 job postings, and is significant
+        at the 0.05 level is illustrated in the graph with thicker edge weights.''')
+                 
+        st.write('''If you like, you can play around with other significance levels, 
+        and display the resultant filtered co-occurence table below.''')
+    
+    
     if st.checkbox("Click to view the co-occurence dataset",False):
             chosen = st.radio("Dataset Filtered by Chi2 Significance",("0.1","0.05","0.01"))
             significance = float(chosen)
             df_edge_subset = df_edge_dict[number_of_clusters][title]
             df_edge = df_edge_subset[df_edge_subset["p_value_chi2"] <= significance]
-            "dataset", df_edge
-  
-    
+            "dataset", df_edge                 
 
 
 # In[ ]:
