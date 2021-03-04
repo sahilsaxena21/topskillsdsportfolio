@@ -17,7 +17,7 @@ Data Science is a rapidly booming field, attracting talent from a variety of edu
 
 As a result, aspiring individuals who are new to data science, but are looking to enter into this industry may find it confusing to do so. These individuals want to **identify the skills in high demand, so they can take appropriate steps to up-skill** to improve their candidacy to break into this lucrative industry in the Canadian context.
 
-This project aims to provide data-driven insights to such users at the fundamental level. Job descriptions from online job postings is used as an indicator of the baseline set of skills sought after by employers. An NLP pipeline driven by an unsupervised learning algorithm is developed that scrapes job postings from Indeed.ca (N=454), cleans them, and delivers insights to users programmatically. 
+This project aims to provide insights to such users at the fundamental level. Job descriptions from online job postings is used as an indicator of the baseline set of skills sought after by employers. An NLP pipeline driven by an unsupervised learning algorithm is developed that scrapes job postings from Indeed.ca (N=454), cleans them, and delivers insights to users programmatically. 
 
 Although aspiring individuals looking to enter this industry typically already have access to such postings and can take this process up by themselves, if this process is not programmatic, the user would have to read through the job descriptions manually, while keeping a record of the skills enlisted in each one, which takes time and effort. Moreover, data science is an evolving field, and hence this process would need to be repeated every so often to keep the results current.
 
