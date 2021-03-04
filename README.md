@@ -13,7 +13,7 @@ Refer to the Streamlit app here: https://share.streamlit.io/sahilsaxena21/topski
 
 ## Executive Summary
 
-Data Science is a rapidly booming industry, attracting talent from a variety of educational backgrounds. It is also an inter-disciplinary one, because in practice, it utilizes techniques and theories drawn from many fields within the context of mathematics, statistics, computer science, domain knowledge and information science. 
+Data Science is a rapidly booming industry, attracting talent from a variety of educational backgrounds. It can be regarded as an inter-disciplinary field, drawing techniques and theories in the context of mathematics, statistics, computer science and information science. 
 
 Due to a lack of standardization of job roles in data science, the skill needs of the industry is not always clear. In fact, it is not uncommon for two jobs to require a different set of skills, even if the job titles are exactly the same. This ambiguity is further worsened by the wide array of tools, technologies, frameworks and languages available.
 
