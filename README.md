@@ -36,7 +36,7 @@ Secondly, the problem of our user (i.e. in this project intended users are the i
 
 ## Measuring Success
 
-In a real-world setting, one of ways project success can be measured is by receiving direct feedback from our target users. For example, we can engage a random sample of our population of target users to rate the effectiveness of the app by designing a quantitative survey. 
+In a real-world setting, one of ways project success can be measured is by receiving direct feedback from our target users. For example, we can engage a random sample of our target population and ask them to rate the effectiveness of the app via. a quantitative survey. This approach can also be used to collect feedback on how the app can be made better, to advance iterative and incremental improvement.
 
 
 ## Methodology
