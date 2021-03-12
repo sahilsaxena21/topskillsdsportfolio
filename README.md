@@ -34,6 +34,11 @@ Secondly, the problem of our user (i.e. in this project intended users are the i
 4. **AQ 4**: To be efficient, how can I up-skill in a way that leverages my existing skill set?
 
 
+## Measuring Success
+
+In a real-world setting, one of ways project success can be measured is by receiving direct feedback from our target users. For example, we can engage a random sample of our population of target users to rate the effectiveness of the app by designing a quantitative survey. 
+
+
 ## Methodology
 
 The following analytical approach was used to extracts insights visualized in the Streamlit app.
