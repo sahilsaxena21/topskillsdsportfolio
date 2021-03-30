@@ -1,7 +1,7 @@
 # Programmatic Characterization of Skill Needs in Canada's Data Science Industry
 
 
-## Scripts
+## Python Classes
 The project is taken up by 4 python classes as outlined below:
 
 1. [01_Scraper.py](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/_01_Scraper.py) contains two classes, the JobPostingsCollector and HardSkillsCollector to create the datasets for this project. Both the scrapers are written in Python using the web interaction library Beautiful Soup.
