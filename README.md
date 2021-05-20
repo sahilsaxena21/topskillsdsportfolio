@@ -81,10 +81,10 @@ The dataset of the significant co-occurences found can be found in the [Streamli
 <sub>for better image clarity, refer to the pdf here https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/Insights%20Interpretation%20Summary.pdf</sub>
 
 ![Insights and Interpretation](https://github.com/sahilsaxena21/topskillsdsportfolio/blob/main/image_files/dstypes_all.JPG)
-**Interpreting Types of Roles for Job Title ‘Data Scientist’ [1, 2, 3]**
+**Interpreting Segments for Job Title ‘Data Scientist’ [1, 2, 3]**
 
 
-As per the above network graph, current industry needs can largely be seperated into 3 types of data scientists. These are inferred from the figure as below. The trait characteristics of each cluster are **bolded**.
+As per the above network graph, current industry needs can largely be seperated into 3 types of data scientists. The segment profiles are described as below. The trait characteristics of each cluster are **bolded**.
 
 1.	The **generalist** or “full-stack” data scientist roles with wide-ranging skills involving data **cleaning** (using **pandas**), creating **pipelines** and **interpreting** findings using visualization tools such as **tableau**
 2.	Roles that recognize use of **Kotlin**. Kotlin is a Java based programming language, growing rapidly to improve upon the current deficiencies of the programming language Scala.
